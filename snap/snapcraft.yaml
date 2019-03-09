@@ -1,0 +1,78 @@
+name: scrcpy
+
+version: '1.8'
+
+summary: Display and control your Android device
+
+description: |
+  This application provides display and control of Android devices connected on USB (or over TCP/IP). It does not require any root access.  It works on GNU/Linux, Windows and MacOS.  
+
+grade: devel 
+confinement: strict 
+
+base: core18
+
+apps:
+  scrcpy:
+    command: usr/local/bin/scrcpy
+    environment:
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android"
+  adb:  
+    command: usr/bin/adb
+    environment:
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/x86_64-linux-gnu/android/"
+
+layout:
+  /usr/share/scrcpy:
+    bind: $SNAP/usr/share/scrcpy
+
+parts:
+  scrcpy-server:
+    plugin: nil
+    override-pull:
+      wget https://github.com/Genymobile/scrcpy/releases/download/v1.8/scrcpy-server-v1.8.jar
+    override-build: |
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/scrcpy/
+      cp scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr/share/scrcpy/ 
+
+  scrcpy:
+    source: https://github.com/Genymobile/scrcpy.git
+    plugin: meson
+    meson-parameters: 
+      - --buildtype=release
+      - --strip 
+      - -Db_lto=true
+      - -Dbuild_server=false
+      - -Doverride_server_path=/usr/share/scrcpy/scrcpy-server-v1.8.jar
+    build-packages:
+      - make
+      - gcc
+      - pkg-config
+      - meson
+      - ninja-build
+      - libavcodec-dev
+      - libavformat-dev
+      - libavutil-dev
+      - libsdl2-dev 
+    stage-packages:
+      - ffmpeg
+      - libsdl2-2.0-0
+      - libslang2
+      - libglu1-mesa
+      - android-tools-adb
+
+plugs:
+# For snaps with a graphical user interface:
+  desktop:
+  desktop-legacy:
+  x11:
+  unity7:
+  wayland:
+# Graphics rendering
+  opengl:
+# Audio
+  pulseaudio:
+# Network access may be required for connection over TCP/IP
+  network:
+# adb 
+  adb-support:
