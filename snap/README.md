@@ -1,4 +1,4 @@
-# Unofficial Snap Packaging for [Project]
+# Unofficial Snap Packaging for scrcpy
 <!--
 	Use the Staticaly service for easy access to in-repo pictures:
 	https://www.staticaly.com/
