@@ -21,23 +21,19 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
 ### In a Terminal
     # Install the snap #
     sudo snap install --channel=edge --devmode scrcpy
-    #sudo snap install --channel=beta scrcpy
-    #sudo snap install scrcpy
     
     # Connect the snap to essential security confinement interfaces #
-    ## (Proper reasoning for connecting _plug_name_) ##
+    ## for adb support ##
     sudo snap connect scrcpy:adb-support
-    
-    # Connect the snap to optional security confinement interfaces #
-    ## (Proper reasoning for connecting _plug_name_) ##
-    sudo snap connect my-awesome-app:_plug_name_
-    
+
     # Launch the application #
     scrcpy
-    snap run my-awesome-app # If you have another existing installation
+    
+    # If you need to use the buildin adb tool #
+    scrcpy.adb [options]
 
 ### The Graphical Way
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/my-awesome-app)
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/scrcpy)
 -->
 
 <!-- Uncomment when you have test results
