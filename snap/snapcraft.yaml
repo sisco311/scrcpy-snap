@@ -67,6 +67,7 @@ parts:
       - libslang2
       - libglu1-mesa
       - android-tools-adb
+      - wget
 
 plugs:
 # For snaps with a graphical user interface:
