@@ -11,11 +11,11 @@
 [![Build Status Badge of the `my-awesome-app` Snap](https://build.snapcraft.io/badge/_repo_owner_id_/_repo_name_id_.svg "Build Status of the `my-awesome-app` snap")](https://build.snapcraft.io/user/_repo_owner_id_/_repo_name_id_)
 -->
 
-<!-- Uncomment and modify this when you have a screenshot
-![Screenshot of the Snapped Application](local/screenshots/screenshot.png "Screenshot of the Snapped Application")
--->
+-- Uncomment and modify this when you have a screenshot
+![Screenshot of the Snapped Application](https://github.com/Genymobile/scrcpy/blob/master/assets/screenshot-debian-600.jpg "Screenshot of the Snapped Application")
 
-Published for <img src="https://github.com/Genymobile/scrcpy/blob/master/assets/screenshot-debian-600.jpg" align="top" width="24" /> with 💝 by Snapcrafters
+
+Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with 💝 by Snapcrafters
 
 <!-- Uncomment and modify this when you have published the snap to the Snap Store
 ## Installation
