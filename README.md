@@ -1,4 +1,4 @@
-# Unofficial Snap Packaging for [scrcpy]
+# Unofficial Snap Packaging for scrcpy
 This is the unofficial snap packaging for [scrcpy](https://github.com/Genymobile/scrcpy), [Snaps are universal Linux packages](https://snapcraft.io).
 
 Refer [snap/README.md](snap/README.md) for user-oriented information.
