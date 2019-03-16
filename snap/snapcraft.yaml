@@ -1,4 +1,5 @@
 name: scrcpy
+title: scrcpy [unofficial]
 
 version: '1.8'
 
@@ -7,10 +8,17 @@ summary: Display and control your Android device
 description: |
   This application provides display and control of Android devices connected on USB (or over TCP/IP). It does not require any root access.  It works on GNU/Linux, Windows and MacOS.  
 
+license: Apache-2.0
 grade: devel 
 confinement: strict 
 
+
+
 base: core18
+
+architectures:
+- build-on: i386
+- build-on: amd64
 
 apps:
   scrcpy:
@@ -23,8 +31,8 @@ apps:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/x86_64-linux-gnu/android/"
 
 layout:
-  /usr/share/scrcpy:
-    bind: $SNAP/usr/share/scrcpy
+  /usr/local/share/scrcpy:
+    bind: $SNAP/usr/local/share/scrcpy
 
 parts:
   scrcpy-server:
@@ -32,8 +40,8 @@ parts:
     override-pull:
       wget https://github.com/Genymobile/scrcpy/releases/download/v1.8/scrcpy-server-v1.8.jar
     override-build: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/scrcpy/
-      cp scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr/share/scrcpy/ 
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
+      cp scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr//local/share/scrcpy/scrcpy-server.jar
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
@@ -43,7 +51,6 @@ parts:
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
-      - -Doverride_server_path=/usr/share/scrcpy/scrcpy-server-v1.8.jar
     build-packages:
       - make
       - gcc
@@ -74,5 +81,5 @@ plugs:
   pulseaudio:
 # Network access may be required for connection over TCP/IP
   network:
-# adb 
+# adb support
   adb-support:
