@@ -51,6 +51,7 @@ parts:
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
+      - -Doverride_server_path=/usr/local/share/scrcpy/scrcpy-server.jar
     build-packages:
       - make
       - gcc
