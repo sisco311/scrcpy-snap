@@ -60,7 +60,8 @@ parts:
       - libavcodec-dev
       - libavformat-dev
       - libavutil-dev
-      - libsdl2-dev 
+      - libsdl2-dev
+      - curl
     stage-packages:
       - ffmpeg
       - libsdl2-2.0-0
