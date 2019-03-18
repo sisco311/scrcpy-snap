@@ -29,7 +29,7 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
     # Launch the application #
     scrcpy
     
-    # If you need to use the buildin adb tool #
+    # If you need to use the builtin adb tool #
     scrcpy.adb [options]
 
 ### The Graphical Way
@@ -51,3 +51,6 @@ Check out the [issue tracker](https://github.com/_repo_owner_id_/_repo_name_id_/
 * You may also post on the Snapcraft Forum, under the `snap` topic category:  
   <https://forum.snapcraft.io/c/snap>
 -->
+
+
+[![Snap Status](https://build.snapcraft.io/badge/sisco311/scrcpy-snap.svg)](https://build.snapcraft.io/user/sisco311/scrcpy-snap)
