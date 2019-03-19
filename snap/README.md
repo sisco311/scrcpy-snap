@@ -24,7 +24,7 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
     
     # Connect the snap to essential security confinement interfaces #
     ## for adb support ##
-    sudo snap connect scrcpy:adb-support
+    sudo snap connect scrcpy:adb-support :adb-support
 
     # Launch the application #
     scrcpy
