@@ -23,6 +23,8 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
     sudo snap install --channel=edge --devmode scrcpy
     
     # Connect the snap to essential security confinement interfaces #
+    ## core snap is needed ##
+    sudo snap install core
     ## for adb support ##
     sudo snap connect scrcpy:adb-support :adb-support
 
