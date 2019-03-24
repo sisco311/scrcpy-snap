@@ -28,7 +28,7 @@ apps:
   adb:  
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/x86_64-linux-gnu/android/"
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
 
 layout:
   /usr/local/share/scrcpy:
@@ -68,7 +68,7 @@ parts:
       - libsdl2-2.0-0
       - libslang2
       - libglu1-mesa
-      - android-tools-adb
+      - adb
 
 plugs:
 # For snaps with a graphical user interface:
