@@ -1,7 +1,7 @@
 name: scrcpy
 title: scrcpy [unofficial]
 
-version: '1.8'
+adopt-info: scrcpy
 
 summary: Display and control your Android device
 
@@ -9,10 +9,8 @@ description: |
   This application provides display and control of Android devices connected on USB (or over TCP/IP). It does not require any root access.  It works on GNU/Linux, Windows and MacOS.  
 
 license: Apache-2.0
-grade: devel 
+grade: stable 
 confinement: strict 
-
-
 
 base: core18
 
@@ -51,7 +49,9 @@ parts:
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
-      
+    override-pull: |
+        snapcraftctl pull
+        snapcraftctl set-version $(git describe --tag)      
     build-packages:
       - make
       - gcc
