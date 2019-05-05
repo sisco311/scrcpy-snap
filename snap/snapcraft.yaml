@@ -40,7 +40,7 @@ parts:
       wget https://github.com/Genymobile/scrcpy/releases/download/v1.8/scrcpy-server-v1.8.jar
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
+      mv scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
@@ -52,6 +52,7 @@ parts:
       - -Dbuild_server=false
     override-pull: |
         snapcraftctl pull
+        git checkout v1.8
         snapcraftctl set-version $(git describe --tag)      
     build-packages:
       - make
