@@ -19,8 +19,9 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
 ### In a Terminal
-    # Install the snap #
-    sudo snap install --channel=edge scrcpy
+    # Install the snap from satble #
+    sudo snap install scrcpy
+
     
     # Connect the snap to essential security confinement interfaces #
     ## core snap is needed ##
@@ -33,6 +34,9 @@ Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.
     
     # If you need to use the builtin adb tool #
     scrcpy.adb [options]
+    # E.g. #
+    scrcpy.adb kill-server
+    scrcpy.adb devices
 
 ### The Graphical Way
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/scrcpy)
