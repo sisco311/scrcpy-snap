@@ -87,3 +87,5 @@ plugs:
   network:
 # adb support
   adb-support:
+# for recording to the home dir
+  home:
