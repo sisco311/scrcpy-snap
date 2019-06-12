@@ -25,10 +25,23 @@ apps:
     command: usr/local/bin/scrcpy
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - x11
+      - unity7
+      - wayland
+      - opengl
+      - home
+      - network-bind
+
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
+    plugs:
+      - network
+
 
 layout:
   /usr/local/share/scrcpy:
@@ -73,19 +86,4 @@ parts:
       - adb
 
 plugs:
-# For snaps with a graphical user interface:
-  desktop:
-  desktop-legacy:
-  x11:
-  unity7:
-  wayland:
-# Graphics rendering
-  opengl:
-# Audio
-  pulseaudio:
-# Network access may be required for connection over TCP/IP
-  network:
-# adb support
   adb-support:
-# for recording to the home dir
-  home:
