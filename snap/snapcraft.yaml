@@ -18,16 +18,30 @@ base: core18
 architectures:
 - build-on: i386
 - build-on: amd64
+- build-on: armhf
 
 apps:
   scrcpy:
     command: usr/local/bin/scrcpy
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android"
+    plugs:
+      - desktop
+      - desktop-legacy
+      - x11
+      - unity7
+      - wayland
+      - opengl
+      - home
+      - network-bind
+
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
+    plugs:
+      - network
+
 
 layout:
   /usr/local/share/scrcpy:
@@ -37,10 +51,10 @@ parts:
   scrcpy-server:
     plugin: nil
     override-pull:
-      wget https://github.com/Genymobile/scrcpy/releases/download/v1.8/scrcpy-server-v1.8.jar
+      wget https://github.com/Genymobile/scrcpy/releases/download/v1.9/scrcpy-server-v1.9.jar
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      mv scrcpy-server-v1.8.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
+      cp scrcpy-server-v1.9.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
@@ -52,7 +66,7 @@ parts:
       - -Dbuild_server=false
     override-pull: |
         snapcraftctl pull
-        git checkout v1.8
+        git checkout v1.9
         snapcraftctl set-version $(git describe --tag)      
     build-packages:
       - make
@@ -73,20 +87,4 @@ parts:
       - adb
 
 plugs:
-# For snaps with a graphical user interface:
-  desktop:
-  desktop-legacy:
-  x11:
-  unity7:
-  wayland:
-# Graphics rendering
-  opengl:
-# Audio
-  pulseaudio:
-# Network access may be required for connection over TCP/IP
-  network:
-# adb support
   adb-support:
-# for recording to the home dir
-  home:
-  
