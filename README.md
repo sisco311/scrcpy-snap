@@ -1,8 +1,4 @@
 # Unofficial Snap Packaging for scrcpy
-<!--
-	Use the Staticaly service for easy access to in-repo pictures:
-	https://www.staticaly.com/
--->
 
 **This is the unofficial snap for scrcpy**, *"Display and control your Android device"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
 
@@ -19,20 +15,20 @@
 
 ### From the Terminal
 
-# The latest (non stable) version built from scrcpy's master branch is in the edge channel:
+#### The latest (non stable) version built from scrcpy's master branch is in the edge channel:
     sudo snap install --channel=edge scrcpy #
     
-# The latest stable version (currently v1.9) is in the stable channel:
+#### The latest stable version (currently v1.9) is in the stable channel:
     sudo snap install scrcpy
     
-# On some systems the core snap is not installed by default but it's needed:
+#### On some systems the core snap is not installed by default but it's needed:
     sudo snap install core
 
-# You can use the builtin adb tool:
+#### You can use the builtin adb tool:
     scrcpy.adb [options]
-## For example:
+##### For example:
     scrcpy.adb devices
     scrcpy.adb kill-server
     
-# To uninstall the scrcpy snap:
+### To uninstall the scrcpy snap:
     sudo snap remove scrcpy
