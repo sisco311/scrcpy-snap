@@ -18,6 +18,7 @@ base: core18
 architectures:
 - build-on: i386
 - build-on: amd64
+- build-on: armhf
 
 apps:
   scrcpy:
@@ -54,17 +55,17 @@ parts:
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
       cp scrcpy-server-v1.9.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
-
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
-    source-commit: 53310a9
     plugin: meson
     meson-parameters: 
       - --buildtype=release
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
-      
+    override-pull: |
+        snapcraftctl pull
+        snapcraftctl set-version $(git describe --tag)      
     build-packages:
       - make
       - gcc
@@ -85,5 +86,8 @@ parts:
 
 plugs:
   adb-support:
-
-#slots:
+  adb:
+    interface: content
+    content: executables
+    default-provider: sisco311-adb
+    target: $SNAP/usr/bin
