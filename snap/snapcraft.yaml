@@ -57,16 +57,14 @@ parts:
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
+    source-commit: 53310a9
     plugin: meson
     meson-parameters: 
       - --buildtype=release
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
-    override-pull: |
-        snapcraftctl pull
-        git checkout 53310a9
-        snapcraftctl set-version v1.9      
+      
     build-packages:
       - make
       - gcc
@@ -88,4 +86,4 @@ parts:
 plugs:
   adb-support:
 
-slots:
+#slots:
