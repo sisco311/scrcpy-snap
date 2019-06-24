@@ -87,3 +87,5 @@ parts:
 
 plugs:
   adb-support:
+
+slots:
