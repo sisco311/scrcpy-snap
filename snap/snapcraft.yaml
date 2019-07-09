@@ -35,6 +35,8 @@ apps:
 layout:
   /usr/local/share/scrcpy:
     bind: $SNAP/usr/local/share/scrcpy
+  /usr/lib/dri:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
 
 parts:
   scrcpy-server:
