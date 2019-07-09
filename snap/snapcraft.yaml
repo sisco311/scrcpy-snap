@@ -24,23 +24,12 @@ apps:
   scrcpy:
     command: usr/local/bin/scrcpy
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android"
-    plugs:
-      - desktop
-      - desktop-legacy
-      - x11
-      - unity7
-      - wayland
-      - opengl
-      - home
-      - network-bind
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
 
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
-    plugs:
-      - network
 
 
 layout:
@@ -87,3 +76,13 @@ parts:
 
 plugs:
   adb-support:
+  desktop:
+  desktop-legacy:
+  x11:
+  unity7:
+  wayland:
+  opengl:
+  home:
+  network-bind:
+  network:
+
