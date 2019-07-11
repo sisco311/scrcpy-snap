@@ -57,7 +57,7 @@ parts:
     source: https://github.com/Genymobile/scrcpy.git
     plugin: meson
     meson-parameters: 
-      - --buildtype=release
+      - --buildtype=debug
       - --strip 
       - -Db_lto=true
       - -Dbuild_server=false
@@ -86,6 +86,4 @@ plugs:
   adb-support:
   adb:
     interface: content
-    content: executables
-    default-provider: sisco311-adb
     target: $SNAP/usr/bin
