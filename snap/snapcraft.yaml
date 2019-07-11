@@ -16,34 +16,27 @@ confinement: strict
 base: core18
 
 architectures:
+- build-on: i386
 - build-on: amd64
+- build-on: armhf
 
 apps:
   scrcpy:
     command: usr/local/bin/scrcpy
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android"
-    plugs:
-      - desktop
-      - desktop-legacy
-      - x11
-      - unity7
-      - wayland
-      - opengl
-      - home
-      - network-bind
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
 
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
-    plugs:
-      - network
 
 
 layout:
   /usr/local/share/scrcpy:
     bind: $SNAP/usr/local/share/scrcpy
+  /usr/lib/dri:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
 
 parts:
   scrcpy-server:
@@ -84,6 +77,15 @@ parts:
 
 plugs:
   adb-support:
+  desktop:
+  desktop-legacy:
+  x11:
+  unity7:
+  wayland:
+  opengl:
+  home:
+  network-bind:
+  network:
   adb:
     interface: content
     target: $SNAP/usr/bin
