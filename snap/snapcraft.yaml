@@ -23,13 +23,13 @@ apps:
     command: usr/local/bin/scrcpy
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
-
+      MESA_GLSL_CACHE_DIR: "$SNAP_USER_DATA/.cache/mesa_shader_cache"
+   
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
-      MESA_GLSL_CACHE_DIR: "$SNAP_USER_DATA/.cache/mesa_shader_cache"
-
+     
 layout:
   /usr/local/share/scrcpy:
     bind: $SNAP/usr/local/share/scrcpy
