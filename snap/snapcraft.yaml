@@ -28,7 +28,7 @@ apps:
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
-
+      MESA_GLSL_CACHE_DIR: "$SNAP_USER_DATA/.cache/mesa_shader_cache"
 
 layout:
   /usr/local/share/scrcpy:
