@@ -86,4 +86,7 @@ plugs:
   home:
   network-bind:
   network:
-
+  adb:
+    interface: content
+    target: $SNAP/usr/bin
+    
