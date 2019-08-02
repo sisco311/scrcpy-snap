@@ -53,7 +53,7 @@ parts:
       - --buildtype=release
       - --strip 
       - -Db_lto=true
-      - -Dbuild_server=false
+      - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
         git checkout 53310a9
