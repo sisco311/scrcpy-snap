@@ -51,7 +51,7 @@ parts:
       - --buildtype=debug
       - --strip 
       - -Db_lto=true
-      - -Dbuild_server=false
+      - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
         snapcraftctl set-version $(git describe --tag)      
