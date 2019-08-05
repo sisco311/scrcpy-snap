@@ -57,7 +57,7 @@ parts:
     override-pull: |
         snapcraftctl pull
         git checkout v1.10
-        snapcraftctl set-version v1.10      
+        snapcraftctl set-version $(git describe --tag)
     build-packages:
       - make
       - gcc
