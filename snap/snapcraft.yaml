@@ -56,8 +56,8 @@ parts:
       - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
-        git checkout v1.10
-        snapcraftctl set-version $(git describe --tag)
+        git checkout a9c8fa3
+        snapcraftctl set-version v1.10 #$(git describe --tag)
     build-packages:
       - make
       - gcc
