@@ -1,4 +1,4 @@
-# Unofficial Snap Packaging for scrcpy
+# Snap Packaging for scrcpy
 
 **This is the unofficial snap for scrcpy**, *"Display and control your Android device"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
 
