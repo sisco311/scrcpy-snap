@@ -32,18 +32,13 @@ apps:
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
      
+
 layout:
   /usr/local/share/scrcpy:
     bind: $SNAP/usr/local/share/scrcpy
 
+
 parts:
-  scrcpy-server:
-    plugin: nil
-    override-pull:
-      wget https://github.com/Genymobile/scrcpy/releases/download/v1.10/scrcpy-server-v1.10.jar
-    override-build: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v1.10.jar $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server.jar
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
     plugin: meson
@@ -51,11 +46,37 @@ parts:
       - --buildtype=debug
       - --strip 
       - -Db_lto=true
-      - -Dcompile_server=false
+    build-environment:
+      - ANDROID_SDK_ROOT: $SNAPCRAFT_PART_BUILD
     override-pull: |
         snapcraftctl pull
         git checkout dev
         snapcraftctl set-version $(git describe --tag)      
+    override-build: |
+        cp $SNAPCRAFT_PROJECT_DIR/sdk-tools-linux-4333796.zip ./
+        unzip sdk-tools-linux-4333796.zip
+
+        JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+        ANDROID_SDK_ROOT=$SNAPCRAFT_PART_BUILD
+        ANDROID_HOME=$SNAPCRAFT_PART_BUILD
+        PATH=$JAVA_HOME/bin:$PATH
+        PATH=$SNAPCRAFT_PART_BUILD/tools/bin:$PATH
+        export JAVA_HOME
+        export ANDROID_SDK_ROOT
+        export ANDROID_HOME
+        export PATH
+
+        yes | $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager --licenses
+
+        cp -r $SNAPCRAFT_PROJECT_DIR/platforms ./
+        cp -r $SNAPCRAFT_PROJECT_DIR/build-tools ./
+        $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager build-tools\;28.0.3
+        $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager platforms\;android-29
+        cp $SNAPCRAFT_PROJECT_DIR/build-wrapper.sh server/scripts/build-wrapper.sh
+
+        ANDROID_HOME=$SNAPCRAFT_PART_BUILD
+
+        snapcraftctl build        
     build-packages:
       - make
       - gcc
@@ -67,13 +88,16 @@ parts:
       - libavutil-dev
       - libsdl2-dev
       - wget
+      - unzip
+      - openjdk-8-jre
+      - openjdk-8-jdk
+      - android-sdk
     stage-packages:
       - ffmpeg
       - libsdl2-2.0-0
       - libslang2
       - libglu1-mesa
       - adb
-
 plugs:
   adb-support:
   desktop:
