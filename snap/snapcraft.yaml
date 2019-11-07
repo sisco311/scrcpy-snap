@@ -51,9 +51,8 @@ parts:
     override-pull: |
         snapcraftctl pull
         git checkout dev
-        snapcraftctl set-version $(git describe --tag)      
-    override-build: |
-#        cp $SNAPCRAFT_PROJECT_DIR/sdk-tools-linux-4333796.zip ./
+        snapcraftctl set-version $(git describe --tag)
+        override-build: |
         wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
         unzip sdk-tools-linux-4333796.zip
 
@@ -69,8 +68,6 @@ parts:
 
         yes | $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager --licenses
 
-#        cp -r $SNAPCRAFT_PROJECT_DIR/platforms ./
-#        cp -r $SNAPCRAFT_PROJECT_DIR/build-tools ./
         $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager build-tools\;28.0.3
         $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager platforms\;android-29
         cp $SNAPCRAFT_PROJECT_DIR/build-wrapper.sh server/scripts/build-wrapper.sh
