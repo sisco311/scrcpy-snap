@@ -66,10 +66,10 @@ parts:
         export ANDROID_HOME
         export PATH
 
-        yes | $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager --licenses
+        yes | tools/bin/sdkmanager --licenses
 
-        $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager build-tools\;28.0.3
-        $SNAPCRAFT_PART_BUILD/tools/bin/sdkmanager platforms\;android-29
+        tools/bin/sdkmanager build-tools\;28.0.3
+        tools/bin/sdkmanager platforms\;android-29
         cp $SNAPCRAFT_PROJECT_DIR/build-wrapper.sh server/scripts/build-wrapper.sh
 
         ANDROID_HOME=$SNAPCRAFT_PART_BUILD
