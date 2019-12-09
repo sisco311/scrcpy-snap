@@ -41,10 +41,10 @@ parts:
   scrcpy-server:
     plugin: nil
     override-pull:
-      wget https://github.com/Genymobile/scrcpy/releases/download/v1.11/scrcpy-server-v1.11
+      wget https://github.com/Genymobile/scrcpy/releases/download/v1.12/scrcpy-server-v1.12
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v1.11 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
+      cp scrcpy-server-v1.12 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
@@ -56,7 +56,7 @@ parts:
       - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
-        git checkout v1.11
+        git checkout v1.12
         snapcraftctl set-version $(git describe --tag)
     build-packages:
       - make
@@ -86,5 +86,9 @@ plugs:
   opengl:
   home:
   network-bind:
-  network:
+  network:  
+  adb:
+    interface: content
+    target: $SNAP/usr/bin
+  
 
