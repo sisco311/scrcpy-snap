@@ -15,7 +15,7 @@
 
 ### From the Terminal
   
-##### The latest stable version (currently v1.12) is in the stable channel:
+##### The latest stable version (currently v1.14) is in the stable channel:
     sudo snap install scrcpy
     
 ##### The latest (non stable) version built from scrcpy's master branch is in the beta channel:
