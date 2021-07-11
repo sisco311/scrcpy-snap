@@ -64,6 +64,7 @@ parts:
       - pkg-config
       - meson
       - ninja-build
+      - libavdevice-dev
       - libavcodec-dev
       - libavformat-dev
       - libavutil-dev
