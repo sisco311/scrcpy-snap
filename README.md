@@ -14,14 +14,12 @@
 
 ### From the Terminal
   
-##### The latest stable version (currently v1.14) is in the stable channel:
+##### The latest stable version (currently v1.19) is in the stable channel:
     sudo snap install scrcpy
     
 ##### The latest (non stable) version built from scrcpy's master branch is in the beta channel:
     sudo snap install --channel=beta scrcpy
     
-##### The development version build from the dev branch is in the edge channel:
-    sudo snap install --channel=edge scrcpy
 
 ##### On some systems the core snap is not installed by default but it's needed:
     sudo snap install core
