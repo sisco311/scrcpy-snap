@@ -88,7 +88,8 @@ plugs:
   opengl:
   home:
   network-bind:
-  network:  
+  network:
+  camera:
   adb:
     interface: content
     target: $SNAP/usr/bin
