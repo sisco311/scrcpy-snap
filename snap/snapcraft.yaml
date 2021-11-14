@@ -68,13 +68,14 @@ parts:
       - libavformat-dev
       - libavutil-dev
       - libsdl2-dev
-      - libusb-1.0-0-dev
+      - libusb-dev
       - wget
     stage-packages:
       - ffmpeg
       - libsdl2-2.0-0
       - libslang2
       - libglu1-mesa
+      - libusb-1.0-0
       - adb
 
 plugs:
