@@ -33,5 +33,8 @@
     scrcpy.adb devices
     scrcpy.adb kill-server
     
+##### In order to use the v4l2loopback feature the camera plug must be connected:
+    sudo snap connect scrcpy:camera
+    
 #### To uninstall the scrcpy snap:
     sudo snap remove scrcpy
