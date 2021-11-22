@@ -69,7 +69,6 @@ parts:
       - libavformat-dev
       - libavutil-dev
       - libsdl2-dev
-      - libusb-dev
       - libusb-1.0-0-dev
       - wget
     stage-packages:
