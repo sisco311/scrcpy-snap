@@ -93,6 +93,7 @@ plugs:
   network-bind:
   network:
   camera:
+  raw-usb:
   adb:
     interface: content
     target: $SNAP/usr/bin
