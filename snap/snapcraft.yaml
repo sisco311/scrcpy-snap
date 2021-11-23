@@ -36,8 +36,10 @@ apps:
 
 layout:
   /usr/local/share/scrcpy:
-    bind: $SNAP/usr/local/share/scrcpy
-
+    symlink: $SNAP/usr/local/share/scrcp
+  /usr/local/share/icons:
+    symlink: $SNAP/usr/local/share/icons
+    
 parts:
   scrcpy-server:
     plugin: nil
