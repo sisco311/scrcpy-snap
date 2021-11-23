@@ -36,7 +36,7 @@ apps:
 
 layout:
   /usr/local/share/scrcpy:
-    symlink: $SNAP/usr/local/share/scrcp
+    symlink: $SNAP/usr/local/share/scrcpy
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
     
