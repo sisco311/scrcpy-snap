@@ -37,7 +37,9 @@ apps:
 
 layout:
   /usr/local/share/scrcpy:
-    bind: $SNAP/usr/local/share/scrcpy
+    symlink: $SNAP/usr/local/share/scrcpy
+  /usr/local/share/icons
+    symlink: $SNAP/usr/local/share/icons
 
 parts:
   scrcpy-server:
@@ -58,7 +60,8 @@ parts:
       - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
-        git checkout v1.20
+#       git checkout v1.20
+        git checkout 739ff9d
         snapcraftctl set-version $(git describe --tag)
     build-packages:
       - make
@@ -93,6 +96,7 @@ plugs:
   network-bind:
   network:
   camera:
+  raw-usb:
   adb:
     interface: content
     target: $SNAP/usr/bin
