@@ -60,7 +60,6 @@ parts:
       - -Dcompile_server=false
     override-pull: |
         snapcraftctl pull
-#       git checkout v1.20
         git checkout 739ff9d
         snapcraftctl set-version $(git describe --tag)
     build-packages:
