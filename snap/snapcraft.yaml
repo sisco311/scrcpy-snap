@@ -13,7 +13,7 @@ license: Apache-2.0
 grade: stable 
 confinement: strict 
 
-base: core18
+base: core20
 
 architectures:
 - build-on: i386
