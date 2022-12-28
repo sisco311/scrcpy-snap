@@ -49,7 +49,7 @@ parts:
       wget https://github.com/Genymobile/scrcpy/releases/download/v1.25/scrcpy-server-v1.25
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v1.24 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
+      cp scrcpy-server-v1.25 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
