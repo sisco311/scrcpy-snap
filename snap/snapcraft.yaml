@@ -39,8 +39,8 @@ layout:
     symlink: $SNAP/usr/local/share/scrcpy
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
+  /usr/share/libdrm/amdgpu.ids:
+    symlink: $SNAP/usr/share/libdrm/amdgpu.ids
     
 parts:
   scrcpy-server:
