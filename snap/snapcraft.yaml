@@ -12,6 +12,7 @@ description: |
 license: Apache-2.0
 grade: stable 
 confinement: strict 
+compression: lzo
 
 base: core20
 
