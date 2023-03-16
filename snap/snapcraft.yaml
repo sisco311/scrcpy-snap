@@ -42,6 +42,9 @@ layout:
     symlink: $SNAP/usr/local/share/icons
   /usr/share/libdrm/:
     bind: $SNAP/usr/share/libdrm/
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
+
     
 parts:
   scrcpy-server:
@@ -83,6 +86,7 @@ parts:
       - libglu1-mesa
       - libusb-1.0-0
       - adb
+      - libasound2
 
 plugs:
   adb-support:
@@ -97,6 +101,9 @@ plugs:
   network:
   camera:
   raw-usb:
+  alsa:
+  audio-playback:
+  audio-record:
   adb:
     interface: content
     target: $SNAP/usr/bin
