@@ -14,16 +14,9 @@
 
 ### From the Terminal
   
-##### The latest stable version (currently v1.20) is in the stable channel:
+##### The latest stable version (currently v2.0) is in the stable channel:
     sudo snap install scrcpy
     
-##### The latest (non stable) version built from scrcpy's master branch is in the beta channel:
-    sudo snap install --channel=beta scrcpy
-    
-
-##### On some systems the core snap is not installed by default but it's needed:
-    sudo snap install core
-
 
 ##### Usage:
     scrcpy
@@ -32,6 +25,9 @@
 ##### For example:
     scrcpy.adb devices
     scrcpy.adb kill-server
+    
+##### For audio playback the alsa plug is needed:
+    sudo snap connect scrcpy:alsa
     
 ##### In order to use the v4l2loopback feature the camera plug must be connected:
     sudo snap connect scrcpy:camera
