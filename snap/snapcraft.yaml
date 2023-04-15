@@ -79,6 +79,7 @@ parts:
       - libsdl2-dev
       - libusb-1.0-0-dev
       - wget
+      - libswresample-dev
     stage-packages:
       - ffmpeg
       - libsdl2-2.0-0
