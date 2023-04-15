@@ -103,6 +103,7 @@ plugs:
   camera:
   raw-usb:
   alsa:
+  pulseaudio:
   audio-playback:
   audio-record:
   adb:
