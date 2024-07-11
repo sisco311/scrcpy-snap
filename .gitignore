@@ -1,0 +1,2 @@
+# Avoid tracking built snaps
+*.snap
