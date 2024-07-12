@@ -14,7 +14,7 @@ grade: stable
 confinement: strict 
 compression: lzo
 
-base: core20
+base: core22
 
 architectures:
 - build-on: amd64
@@ -24,10 +24,9 @@ architectures:
 apps:
   scrcpy:
     command: usr/local/bin/scrcpy
-    environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:/var/lib/snapd/lib/gl"
-      MESA_GLSL_CACHE_DIR: "$SNAP_USER_DATA"
-      LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
+    command-chain:
+      - bin/desktop-launch
+      - bin/scrcpy-launch
     completer: /usr/local/share/bash-completion/completions/scrcpy
   adb:  
     command: usr/bin/adb
@@ -49,14 +48,17 @@ layout:
 parts:
   scrcpy-server:
     plugin: nil
-    override-pull:
-      wget https://github.com/Genymobile/scrcpy/releases/download/v2.0/scrcpy-server-v2.0
+    build-packages:
+      - curl
+      - jq
+    override-pull: SCRCPY_SERVER_VERSION=2.5 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v2.0 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
+      cp scrcpy-server-v* $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
+    source-tag: v2.5
     plugin: meson
     meson-parameters: 
       - --buildtype=release
@@ -78,7 +80,6 @@ parts:
       - libavutil-dev
       - libsdl2-dev
       - libusb-1.0-0-dev
-      - wget
       - libswresample-dev
     stage-packages:
       - ffmpeg
@@ -88,6 +89,27 @@ parts:
       - libusb-1.0-0
       - adb
       - libasound2
+      - freeglut3
+      - libblas3
+
+  # For enabling SDL applications
+  desktop-glib-only:
+    build-packages:
+      - libglib2.0-dev
+    plugin: make
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    stage-packages:
+      - libglib2.0-bin
+
+  # Launcher programs to fix problems at runtime
+  launchers:
+    source: snap/local/launchers
+    plugin: dump
+    organize:
+      '*': bin/
+    stage:
+      - -bin/README.*
 
 plugs:
   adb-support:
