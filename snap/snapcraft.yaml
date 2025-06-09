@@ -17,9 +17,9 @@ compression: lzo
 base: core22
 
 architectures:
-- build-on: amd64
-- build-on: arm64
-- build-on: armhf
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
 
 apps:
   scrcpy:
@@ -86,8 +86,8 @@ parts:
       - -Db_lto=true
       - -Dcompile_server=false
     override-pull: |
-        snapcraftctl pull
-        snapcraftctl set-version $(git describe --tag)      
+      snapcraftctl pull
+      snapcraftctl set-version $(git describe --tag)      
     build-packages:
       - make
       - gcc
