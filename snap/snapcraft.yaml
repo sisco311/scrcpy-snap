@@ -54,7 +54,6 @@ apps:
       - network-bind
       - raw-usb
 
-
 layout:
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
