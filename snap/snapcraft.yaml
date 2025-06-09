@@ -30,21 +30,21 @@ apps:
     completer: /usr/local/share/bash-completion/completions/scrcpy
     plugs:
       - adb-support
-      - desktop
-      - desktop-legacy
-      - x11
-      - unity7
-      - wayland
-      - opengl
-      - home
-      - network-bind
-      - network
-      - camera
-      - raw-usb
       - alsa
-      - pulseaudio
       - audio-playback
       - audio-record
+      - camera
+      - desktop
+      - desktop-legacy
+      - home
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - raw-usb
+      - unity7
+      - wayland
+      - x11
 
   adb:  
     command: usr/bin/adb
@@ -56,14 +56,14 @@ apps:
 
 
 layout:
-  /usr/local/share/scrcpy:
-    symlink: $SNAP/usr/local/share/scrcpy
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
+  /usr/local/share/scrcpy:
+    symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
+  /usr/share/libdrm:
+    bind: $SNAP/usr/share/libdrm
 
 parts:
   scrcpy-server:
@@ -89,28 +89,28 @@ parts:
       snapcraftctl pull
       snapcraftctl set-version $(git describe --tag)      
     build-packages:
-      - make
       - gcc
-      - pkg-config
+      - make
       - meson
+      - pkg-config
       - ninja-build
-      - libavdevice-dev
       - libavcodec-dev
+      - libavdevice-dev
       - libavformat-dev
       - libavutil-dev
       - libsdl2-dev
-      - libusb-1.0-0-dev
       - libswresample-dev
+      - libusb-1.0-0-dev
     stage-packages:
+      - adb
       - ffmpeg
+      - freeglut3
+      - libasound2
+      - libblas3
+      - libglu1-mesa
       - libsdl2-2.0-0
       - libslang2
-      - libglu1-mesa
       - libusb-1.0-0
-      - adb
-      - libasound2
-      - freeglut3
-      - libblas3
 
   # For enabling SDL applications
   desktop-glib-only:
