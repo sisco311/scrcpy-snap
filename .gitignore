@@ -1,1 +1,4 @@
 *.snap
+
+# assertion files for installing snap packages off-line from the store
+*.assert
