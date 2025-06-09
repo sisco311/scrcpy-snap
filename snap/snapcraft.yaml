@@ -28,10 +28,31 @@ apps:
       - bin/desktop-launch
       - bin/scrcpy-launch
     completer: /usr/local/share/bash-completion/completions/scrcpy
+    plugs:
+      - adb-support
+      - desktop
+      - desktop-legacy
+      - x11
+      - unity7
+      - wayland
+      - opengl
+      - home
+      - network-bind
+      - network
+      - camera
+      - raw-usb
+      - alsa
+      - pulseaudio
+      - audio-playback
+      - audio-record
+
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
+    plugs:
+      - network-bind
+      - raw-usb
 
 
 layout:
@@ -112,22 +133,6 @@ parts:
       - -bin/README.*
 
 plugs:
-  adb-support:
-  desktop:
-  desktop-legacy:
-  x11:
-  unity7:
-  wayland:
-  opengl:
-  home:
-  network-bind:
-  network:
-  camera:
-  raw-usb:
-  alsa:
-  pulseaudio:
-  audio-playback:
-  audio-record:
   adb:
     interface: content
     target: $SNAP/usr/bin
