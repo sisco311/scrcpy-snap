@@ -14,49 +14,70 @@ grade: stable
 confinement: strict 
 compression: lzo
 
-base: core20
+base: core22
 
 architectures:
-- build-on: amd64
-- build-on: arm64
-- build-on: armhf
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
 
 apps:
   scrcpy:
     command: usr/local/bin/scrcpy
-    environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:/var/lib/snapd/lib/gl"
-      MESA_GLSL_CACHE_DIR: "$SNAP_USER_DATA"
-      LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri"
+    command-chain:
+      - bin/desktop-launch
+      - bin/scrcpy-launch
     completer: /usr/local/share/bash-completion/completions/scrcpy
+    plugs:
+      - adb-support
+      - alsa
+      - audio-playback
+      - audio-record
+      - camera
+      - desktop
+      - desktop-legacy
+      - home
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - raw-usb
+      - unity7
+      - wayland
+      - x11
+
   adb:  
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
-
+    plugs:
+      - network-bind
+      - raw-usb
 
 layout:
-  /usr/local/share/scrcpy:
-    symlink: $SNAP/usr/local/share/scrcpy
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
+  /usr/local/share/scrcpy:
+    symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
+  /usr/share/libdrm:
+    bind: $SNAP/usr/share/libdrm
 
-    
 parts:
   scrcpy-server:
     plugin: nil
-    override-pull:
-      wget https://github.com/Genymobile/scrcpy/releases/download/v2.0/scrcpy-server-v2.0
+    build-packages:
+      - curl
+      - jq
+    override-pull: SCRCPY_SERVER_VERSION=2.5 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
-      cp scrcpy-server-v2.0 $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
+      cp scrcpy-server-v* $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
+    source-tag: v2.5
     plugin: meson
     meson-parameters: 
       - --buildtype=release
@@ -64,49 +85,52 @@ parts:
       - -Db_lto=true
       - -Dcompile_server=false
     override-pull: |
-        snapcraftctl pull
-        snapcraftctl set-version $(git describe --tag)      
+      snapcraftctl pull
+      snapcraftctl set-version $(git describe --tag)      
     build-packages:
-      - make
       - gcc
-      - pkg-config
+      - make
       - meson
+      - pkg-config
       - ninja-build
-      - libavdevice-dev
       - libavcodec-dev
+      - libavdevice-dev
       - libavformat-dev
       - libavutil-dev
       - libsdl2-dev
-      - libusb-1.0-0-dev
-      - wget
       - libswresample-dev
+      - libusb-1.0-0-dev
     stage-packages:
+      - adb
       - ffmpeg
+      - freeglut3
+      - libasound2
+      - libblas3
+      - libglu1-mesa
       - libsdl2-2.0-0
       - libslang2
-      - libglu1-mesa
       - libusb-1.0-0
-      - adb
-      - libasound2
+
+  # For enabling SDL applications
+  desktop-glib-only:
+    build-packages:
+      - libglib2.0-dev
+    plugin: make
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    stage-packages:
+      - libglib2.0-bin
+
+  # Launcher programs to fix problems at runtime
+  launchers:
+    source: snap/local/launchers
+    plugin: dump
+    organize:
+      '*': bin/
+    stage:
+      - -bin/README.*
 
 plugs:
-  adb-support:
-  desktop:
-  desktop-legacy:
-  x11:
-  unity7:
-  wayland:
-  opengl:
-  home:
-  network-bind:
-  network:
-  camera:
-  raw-usb:
-  alsa:
-  pulseaudio:
-  audio-playback:
-  audio-record:
   adb:
     interface: content
     target: $SNAP/usr/bin
-    

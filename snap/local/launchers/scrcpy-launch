@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Fix the runtime environment needed by the snapped application
+#
+# Copyright 2024 林博仁(Buo-ren, Lin) <buo.ren.lin@gmail.com>
+# SPDX-License-Identifier: Apache-2.0
+
+set_opts=(
+    # Terminate script execution when an unhandled error occurs
+    -o errexit
+    -o errtrace
+
+    # Terminate script execution when an unset parameter variable is
+    # referenced
+    -o nounset
+)
+if ! set "${set_opts[@]}"; then
+    printf \
+        'Error: Unable to configure the defensive interpreter behaviors.\n' \
+        1>&2
+    exit 1
+fi
+
+if test -z "${LD_LIBRARY_PATH}"; then
+    LD_LIBRARY_PATH="${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/android:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/pulseaudio:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/blas:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/lapack"
+else
+    LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/android:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/pulseaudio:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/blas:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/lapack"
+fi
+export LD_LIBRARY_PATH
+
+exec "${@}"
+
