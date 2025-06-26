@@ -8,10 +8,10 @@ summary: Display and control your Android device
 description: |
   This application provides display and control of Android devices connected on USB (or over TCP/IP). It does not require any root access.  It works on GNU/Linux, Windows and MacOS.
   This is an unofficial snap. The code of scrcpy can be found at: https://github.com/Genymobile/scrcpy
-   
+
 license: Apache-2.0
-grade: stable 
-confinement: strict 
+grade: stable
+confinement: strict
 compression: lzo
 
 base: core22
@@ -46,7 +46,7 @@ apps:
       - wayland
       - x11
 
-  adb:  
+  adb:
     command: usr/bin/adb
     environment:
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
@@ -79,14 +79,14 @@ parts:
     source: https://github.com/Genymobile/scrcpy.git
     source-tag: v2.5
     plugin: meson
-    meson-parameters: 
+    meson-parameters:
       - --buildtype=release
-      - --strip 
+      - --strip
       - -Db_lto=true
       - -Dcompile_server=false
     override-pull: |
       snapcraftctl pull
-      snapcraftctl set-version $(git describe --tag)      
+      snapcraftctl set-version $(git describe --tag)
     build-packages:
       - gcc
       - make
