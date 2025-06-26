@@ -2,3 +2,5 @@
 
 # assertion files for installing snap packages off-line from the store
 *.assert
+
+/snap/local/launchers/sdl2-notice/sdl2-notice

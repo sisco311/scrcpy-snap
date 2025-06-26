@@ -139,6 +139,9 @@ parts:
       - -usr/lib/*/libsphinxad.so*
       - -usr/lib/*/libtheora.so*
       - -usr/lib/*/libzvbi-chains.so*
+      - -usr/share/fonts/truetype/dejavu/*Mono*.ttf
+      - -usr/share/fonts/truetype/dejavu/*Bold*.ttf
+      - -usr/share/fonts/truetype/dejavu/*Serif*.ttf
 
   # For enabling SDL applications
   desktop-glib-only:
@@ -158,6 +161,28 @@ parts:
       '*': bin/
     stage:
       - -bin/README.*
+      - -bin/sdl2-notice
+
+  launchers-notice:
+    source: snap/local/launchers/sdl2-notice
+    plugin: nil
+    override-build: |
+      craftctl default
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      gcc -o $SNAPCRAFT_PART_INSTALL/bin/sdl2-notice $CRAFT_PROJECT_DIR/snap/local/launchers/sdl2-notice/sdl2-notice.c $(pkg-config --cflags --libs sdl2 SDL2_ttf)
+    build-packages:
+      - gcc
+      - libsdl2-dev
+      - libsdl2-ttf-dev
+    stage-packages:
+      - libsdl2-2.0-0
+      - libsdl2-ttf-2.0-0
+    stage:
+      - -usr/lib/*/libicui18n.so*
+      - -usr/lib/*/libicuio.so*
+      - -usr/lib/*/libicutu.so*
+      - -usr/lib/*/libicutest.so*
+      - -usr/lib/*/libpulse-simple.so*
 
 plugs:
   adb:

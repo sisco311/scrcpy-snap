@@ -4,6 +4,9 @@
 # Copyright 2024 林博仁(Buo-ren, Lin) <buo.ren.lin@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
+# Enable the notice window if the environment variable is set
+SNAP_LAUNCHER_NOTICE_ENABLED="${SNAP_LAUNCHER_NOTICE_ENABLED:-true}"
+
 set_opts=(
     # Terminate script execution when an unhandled error occurs
     -o errexit
@@ -26,5 +29,33 @@ else
     LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/android:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/pulseaudio:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/blas:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/lapack"
 fi
 export LD_LIBRARY_PATH
+
+marker_file="${SNAP_USER_COMMON}/.marker.skip-collaborator-change-notice-20250627"
+if ! test -e "${marker_file}" \
+    && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"; then
+    printf \
+        '=========================\nHello!\n\nI would like to inform you that I have become a collaborator of this snap and have given access to directly contribute to the packaging.\n\nIf you wish to revert the installation to the previous state you are able to do so by following the instructions at <https://github.com/brlin-tw/scrcpy-snap/releases/tag/v1.99>.\n\nBest regards,\nBuo-ren Lin <https://brlin.me>\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' 1>&2
+
+    "${SNAP}/bin/sdl2-notice" && ret="${?}" || ret="${?}"
+
+    case "${ret}" in
+        0)
+            # User pressed ENTER, avoid showing this notice window in the future
+            touch "${marker_file}"
+            ;;
+        1)
+            # User bailed out
+            exit 1
+            ;;
+        2)
+            printf "Dialog timed out, continuing...\n"
+            ;;
+        *)
+            # Unknown error
+            printf "FATAL: Unknown sdl2-notice exit status: %d\n" "${ret}" 1>&2
+            exit 99
+            ;;
+    esac
+fi
 
 exec "${@}"
