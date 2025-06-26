@@ -14,12 +14,18 @@ grade: stable
 confinement: strict
 compression: lzo
 
-base: core22
+base: core24
 
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [arm64]
+    build-for: [arm64]
+  armhf:
+    build-on: [armhf, arm64]
+    build-for: [armhf]
 
 apps:
   scrcpy:
@@ -49,7 +55,7 @@ apps:
   adb:
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/android/"
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/android/"
     plugs:
       - network-bind
       - raw-usb
@@ -85,8 +91,8 @@ parts:
       - -Db_lto=true
       - -Dcompile_server=false
     override-pull: |
-      snapcraftctl pull
-      snapcraftctl set-version $(git describe --tag)
+      craftctl default
+      craftctl set version="$(git describe --tag)"
     build-packages:
       - gcc
       - make
@@ -103,13 +109,36 @@ parts:
     stage-packages:
       - adb
       - ffmpeg
-      - freeglut3
       - libasound2
       - libblas3
       - libglu1-mesa
+      - libglut3.12
       - libsdl2-2.0-0
       - libslang2
       - libusb-1.0-0
+    stage:
+      - -usr/lib/*/libcaca++.so*
+      - -usr/lib/*/libcjson_utils.so*
+      - -usr/lib/*/libfftw3_omp.so*
+      - -usr/lib/*/libfftw3_threads.so*
+      - -usr/lib/*/libflite_cmu_grapheme_lang.so*
+      - -usr/lib/*/libflite_cmu_grapheme_lex.so*
+      - -usr/lib/*/libflite_cmu_indic_lang.so*
+      - -usr/lib/*/libflite_cmu_indic_lex.so*
+      - -usr/lib/*/libflite_cmu_time_awb.so*
+      - -usr/lib/*/libhwy_contrib.so*
+      - -usr/lib/*/libhwy_test.so*
+      - -usr/lib/*/libicui18n.so*
+      - -usr/lib/*/libicuio.so*
+      - -usr/lib/*/libicutu.so*
+      - -usr/lib/*/libicutest.so*
+      - -usr/lib/*/libjacknet.so*
+      - -usr/lib/*/libjackserver.so*
+      - -usr/lib/*/liboss4-salsa.so*
+      - -usr/lib/*/libpulse-simple.so*
+      - -usr/lib/*/libsphinxad.so*
+      - -usr/lib/*/libtheora.so*
+      - -usr/lib/*/libzvbi-chains.so*
 
   # For enabling SDL applications
   desktop-glib-only:
@@ -134,3 +163,10 @@ plugs:
   adb:
     interface: content
     target: $SNAP/usr/bin
+
+lint:
+  ignore:
+    - library:
+        # Required by the SDL2 library to prevent the "ERROR: Could not create renderer: Couldn't find matching render driver" error
+        - usr/lib/*/libGLX_mesa.so*
+        - usr/lib/*/libxcb-glx.so*
