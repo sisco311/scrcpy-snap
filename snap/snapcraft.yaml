@@ -178,6 +178,7 @@ parts:
       - libsdl2-2.0-0
       - libsdl2-ttf-2.0-0
     stage:
+      - -usr/lib/*/libasound.so*
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libicuio.so*
       - -usr/lib/*/libicutu.so*
