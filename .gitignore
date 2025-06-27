@@ -4,3 +4,6 @@
 *.assert
 
 /snap/local/launchers/sdl2-notice/sdl2-notice
+
+# Don't track remote-build build logs
+/snapcraft-*.txt
