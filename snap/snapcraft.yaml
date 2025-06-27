@@ -33,7 +33,7 @@ apps:
     command-chain:
       - bin/desktop-launch
       - bin/scrcpy-launch
-    completer: /usr/local/share/bash-completion/completions/scrcpy
+    completer: usr/local/share/bash-completion/completions/scrcpy
     plugs:
       - adb-support
       - alsa
