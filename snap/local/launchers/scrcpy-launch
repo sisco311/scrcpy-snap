@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Fix the runtime environment needed by the snapped application
 #
-# Copyright 2024 林博仁(Buo-ren, Lin) <buo.ren.lin@gmail.com>
+# Copyright 2025 林博仁(Buo-ren, Lin) <buo.ren.lin@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
 # Enable the notice window if the environment variable is set
