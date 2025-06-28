@@ -2,9 +2,7 @@
 
 **This is a snap for scrcpy**, *"Display and control your Android device"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
 
-
 ![Screenshot of the Snapped Application](https://github.com/Genymobile/scrcpy/blob/master/assets/screenshot-debian-600.jpg "Screenshot of the Snapped Application")
-
 
 ## Installation
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
@@ -17,7 +15,6 @@
 ##### The latest stable version (currently v2.0) is in the stable channel:
     sudo snap install scrcpy
     
-
 ##### Usage:
     scrcpy
 ##### You can also use the builtin adb tool:
