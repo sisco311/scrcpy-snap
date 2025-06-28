@@ -55,7 +55,7 @@ apps:
   adb:
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/android"
+      LD_LIBRARY_PATH: "${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android"
     plugs:
       - network-bind
       - raw-usb
@@ -78,8 +78,8 @@ parts:
       - jq
     override-pull: SCRCPY_SERVER_VERSION=2.5 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy
-      cp scrcpy-server-v* $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
+      mkdir -p "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy"
+      cp scrcpy-server-v* "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy/scrcpy-server"
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
@@ -168,8 +168,10 @@ parts:
     plugin: nil
     override-build: |
       craftctl default
-      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-      gcc -o $SNAPCRAFT_PART_INSTALL/bin/sdl2-notice $CRAFT_PROJECT_DIR/snap/local/launchers/sdl2-notice/sdl2-notice.c $(pkg-config --cflags --libs sdl2 SDL2_ttf)
+      mkdir -p "${SNAPCRAFT_PART_INSTALL}/bin"
+
+      # NOTE: The lack of quotes around the `pkg-config` command substitution is intentional.
+      gcc -o "${SNAPCRAFT_PART_INSTALL}/bin/sdl2-notice" "${CRAFT_PROJECT_DIR}/snap/local/launchers/sdl2-notice/sdl2-notice.c" $(pkg-config --cflags --libs sdl2 SDL2_ttf)
     build-packages:
       - gcc
       - libsdl2-dev
