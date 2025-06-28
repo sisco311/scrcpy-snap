@@ -55,7 +55,7 @@ apps:
   adb:
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/android/"
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/android"
     plugs:
       - network-bind
       - raw-usb
@@ -78,7 +78,7 @@ parts:
       - jq
     override-pull: SCRCPY_SERVER_VERSION=2.5 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy
       cp scrcpy-server-v* $SNAPCRAFT_PART_INSTALL/usr/local/share/scrcpy/scrcpy-server
 
   scrcpy:
