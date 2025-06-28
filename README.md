@@ -11,10 +11,10 @@
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/scrcpy)
 
 ### From the Terminal
-  
+
 ##### The latest stable version (currently v2.0) is in the stable channel:
     sudo snap install scrcpy
-    
+
 ##### Usage:
     scrcpy
 ##### You can also use the builtin adb tool:
@@ -22,13 +22,13 @@
 ##### For example:
     scrcpy.adb devices
     scrcpy.adb kill-server
-    
+
 ##### For audio playback the alsa plug is needed:
     sudo snap connect scrcpy:alsa
-    
+
 ##### In order to use the v4l2loopback feature the camera plug must be connected:
     sudo snap connect scrcpy:camera
-    
+
 ##### For physical keyboard simulation you need to connect the raw-usb plug:
     sudo snap connect scrcpy:raw-usb
 
@@ -37,6 +37,6 @@
 `Exec=scrcpy`
 could become:
 `Exec=scrcpy -w` to enable the `--stay-awake` flag on scrcpy. See all flags by running `scrcpy --help`.
-    
+
 #### To uninstall the scrcpy snap:
     sudo snap remove scrcpy
