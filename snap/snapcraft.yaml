@@ -143,9 +143,6 @@ parts:
       - -usr/share/fonts/truetype/dejavu/*Bold*.ttf
       - -usr/share/fonts/truetype/dejavu/*Serif*.ttf
 
-      # On arm64
-      - -usr/lib/*/libXxf86vm.so*
-
   # For enabling SDL applications
   desktop-glib-only:
     build-packages:
@@ -205,3 +202,8 @@ lint:
 
         # Workaround for the "Parts 'scrcpy' and 'launchers-notice' list the following files, but with different contents or permissions" error on armhf
         - usr/lib/*/libasound.so.2*
+
+        # Required for core functionality at least on amd64 architecture
+        # If not staged, the application will fail to start with the following error:
+        # "ERROR: Could not create renderer: Couldn't find matching render driver"
+        - usr/lib/*/libXxf86vm.so.
