@@ -178,6 +178,10 @@ parts:
       - libsdl2-2.0-0
       - libsdl2-ttf-2.0-0
     stage:
+      # WORKAROUND: Avoid the "Parts 'scrcpy' and 'launchers-notice' list the following files, but with different contents or permissions" error on armhf
+      # On that architecture the libasound library is diverted to liboss4-salsa hence the contents of the file is different.
+      - -usr/lib/*/libasound.so.2*
+
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libicuio.so*
       - -usr/lib/*/libicutu.so*
@@ -195,3 +199,6 @@ lint:
         # Required by the SDL2 library to prevent the "ERROR: Could not create renderer: Couldn't find matching render driver" error
         - usr/lib/*/libGLX_mesa.so*
         - usr/lib/*/libxcb-glx.so*
+
+        # Workaround for the "Parts 'scrcpy' and 'launchers-notice' list the following files, but with different contents or permissions" error on armhf
+        - usr/lib/*/libasound.so.2*
