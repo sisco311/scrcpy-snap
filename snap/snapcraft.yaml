@@ -206,4 +206,4 @@ lint:
         # Required for core functionality at least on amd64 architecture
         # If not staged, the application will fail to start with the following error:
         # "ERROR: Could not create renderer: Couldn't find matching render driver"
-        - usr/lib/*/libXxf86vm.so.
+        - usr/lib/*/libXxf86vm.so*
