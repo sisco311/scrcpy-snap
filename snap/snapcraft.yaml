@@ -143,6 +143,9 @@ parts:
       - -usr/share/fonts/truetype/dejavu/*Bold*.ttf
       - -usr/share/fonts/truetype/dejavu/*Serif*.ttf
 
+      # On arm64
+      - -usr/lib/*/libXxf86vm.so*
+
   # For enabling SDL applications
   desktop-glib-only:
     build-packages:
