@@ -55,7 +55,7 @@ apps:
   adb:
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: "${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android"
+      LD_LIBRARY_PATH: ${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android
     plugs:
       - network-bind
       - raw-usb
