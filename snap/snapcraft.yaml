@@ -107,6 +107,8 @@ parts:
     stage:
       - -usr/lib/*/libcaca++.so*
       - -usr/lib/*/libcjson_utils.so*
+      - -usr/lib/*/libcairo-gobject.so*
+      - -usr/lib/*/libcairo.so*
       - -usr/lib/*/libfftw3_omp.so*
       - -usr/lib/*/libfftw3_threads.so*
       - -usr/lib/*/libflite_cmu_grapheme_lang.so*
@@ -114,6 +116,8 @@ parts:
       - -usr/lib/*/libflite_cmu_indic_lang.so*
       - -usr/lib/*/libflite_cmu_indic_lex.so*
       - -usr/lib/*/libflite_cmu_time_awb.so*
+      - -usr/lib/*/libgdk_pixbuf-*.so*
+      - -usr/lib/*/libharfbuzz.so*
       - -usr/lib/*/libhwy_contrib.so*
       - -usr/lib/*/libhwy_test.so*
       - -usr/lib/*/libicui18n.so*
@@ -123,7 +127,12 @@ parts:
       - -usr/lib/*/libjacknet.so*
       - -usr/lib/*/libjackserver.so*
       - -usr/lib/*/liboss4-salsa.so*
+      - -usr/lib/*/libpango-*.so*
+      - -usr/lib/*/libpangocairo-*.so*
+      - -usr/lib/*/libpangoft*.so*
+      - -usr/lib/*/libpixman-*.so*
       - -usr/lib/*/libpulse-simple.so*
+      - -usr/lib/*/librsvg*.so*
       - -usr/lib/*/libsphinxad.so*
       - -usr/lib/*/libtheora.so*
       - -usr/lib/*/libzvbi-chains.so*
@@ -161,6 +170,7 @@ parts:
       # On that architecture the libasound library is diverted to liboss4-salsa hence the contents of the file is different.
       - -usr/lib/*/libasound.so.2*
 
+      - -usr/lib/*/libharfbuzz.so*
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libicuio.so*
       - -usr/lib/*/libicutu.so*
