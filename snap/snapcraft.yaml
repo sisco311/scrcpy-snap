@@ -67,14 +67,14 @@ parts:
     build-packages:
       - curl
       - jq
-    override-pull: SCRCPY_SERVER_VERSION=2.5 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
+    override-pull: SCRCPY_SERVER_VERSION=3.3.1 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
       mkdir -p "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy"
       cp scrcpy-server-v* "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy/scrcpy-server"
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
-    source-tag: v2.5
+    source-tag: v3.3.1
     plugin: meson
     meson-parameters:
       - --buildtype=release
