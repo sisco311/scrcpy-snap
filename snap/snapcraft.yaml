@@ -3,7 +3,10 @@ title: scrcpy [unofficial]
 summary: Display and control your Android device
 description: |
   This application provides display and control of Android devices connected on USB (or over TCP/IP). It does not require any root access.  It works on GNU/Linux, Windows and MacOS.
-  This is an unofficial snap. The code of scrcpy can be found at: https://github.com/Genymobile/scrcpy
+
+  This is an unofficial scrcpy distribution.  Please report any issues to the snap's own issue tracker: https://github.com/sisco311/scrcpy-snap/issues
+
+  The source code of scrcpy itself can be found at: https://github.com/Genymobile/scrcpy
 
 adopt-info: scrcpy
 license: Apache-2.0
