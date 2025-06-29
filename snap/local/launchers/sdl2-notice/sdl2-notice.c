@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     if (!snap_path) {
         font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
     } else {
-        const char *font_path_template = "%s/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+        const char *font_path_template = "%s/gnome-platform/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
         int font_path_needed = snprintf(NULL, 0, font_path_template, snap_path);
         font_path = malloc(font_path_needed + 1);
         snprintf(font_path, font_path_needed + 1, font_path_template, snap_path);

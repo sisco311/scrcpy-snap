@@ -28,7 +28,6 @@ apps:
   scrcpy:
     command: usr/local/bin/scrcpy
     command-chain:
-      - bin/desktop-launch
       - bin/scrcpy-launch
     completer: usr/local/share/bash-completion/completions/scrcpy
     plugs:
@@ -37,17 +36,14 @@ apps:
       - audio-playback
       - audio-record
       - camera
-      - desktop
-      - desktop-legacy
       - home
       - network
       - network-bind
-      - opengl
       - pulseaudio
       - raw-usb
       - unity7
-      - wayland
-      - x11
+    extensions:
+      - gnome
 
   adb:
     command: usr/bin/adb
@@ -64,8 +60,6 @@ layout:
     symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
-  /usr/share/libdrm:
-    bind: $SNAP/usr/share/libdrm
 
 parts:
   scrcpy-server:
@@ -90,12 +84,9 @@ parts:
     override-pull: |
       craftctl default
       craftctl set version="$(git describe --tag)"
+    build-snaps:
+      - gnome-46-2404-sdk/latest/candidate
     build-packages:
-      - gcc
-      - make
-      - meson
-      - pkg-config
-      - ninja-build
       - libavcodec-dev
       - libavdevice-dev
       - libavformat-dev
@@ -136,19 +127,7 @@ parts:
       - -usr/lib/*/libsphinxad.so*
       - -usr/lib/*/libtheora.so*
       - -usr/lib/*/libzvbi-chains.so*
-      - -usr/share/fonts/truetype/dejavu/*Mono*.ttf
-      - -usr/share/fonts/truetype/dejavu/*Bold*.ttf
-      - -usr/share/fonts/truetype/dejavu/*Serif*.ttf
-
-  # For enabling SDL applications
-  desktop-glib-only:
-    build-packages:
-      - libglib2.0-dev
-    plugin: make
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: glib-only
-    stage-packages:
-      - libglib2.0-bin
+      - -usr/share/fonts
 
   # Launcher programs to fix problems at runtime
   launchers:
@@ -169,8 +148,9 @@ parts:
 
       # NOTE: The lack of quotes around the `pkg-config` command substitution is intentional.
       gcc -o "${SNAPCRAFT_PART_INSTALL}/bin/sdl2-notice" "${CRAFT_PROJECT_DIR}/snap/local/launchers/sdl2-notice/sdl2-notice.c" $(pkg-config --cflags --libs sdl2 SDL2_ttf)
+    build-snaps:
+      - gnome-46-2404-sdk
     build-packages:
-      - gcc
       - libsdl2-dev
       - libsdl2-ttf-dev
     stage-packages:
@@ -186,6 +166,32 @@ parts:
       - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libicutest.so*
       - -usr/lib/*/libpulse-simple.so*
+
+  cleanup:
+    after:
+      - scrcpy
+      - launchers-notice
+    plugin: nil
+    build-snaps:
+      - core24
+      - gnome-46-2404
+    override-prime: |
+      set -eux
+      for snap in "core24" "gnome-46-2404"; do
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -fv "$CRAFT_PRIME/{}" \;
+      done
+
+  gpu-2404:
+    after: [cleanup]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      #craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+      # Workaround for https://bugs.launchpad.net/snapd/+bug/2055273
+      mkdir -p "${CRAFT_PRIME}/gpu-2404"
+    prime:
+      - -*
 
 plugs:
   adb:
