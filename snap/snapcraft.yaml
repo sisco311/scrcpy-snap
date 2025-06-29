@@ -88,7 +88,7 @@ parts:
       craftctl default
       craftctl set version="$(git describe --tag)"
     build-snaps:
-      - gnome-46-2404-sdk/latest/candidate
+      - gnome-46-2404-sdk
     build-packages:
       - libavcodec-dev
       - libavdevice-dev
