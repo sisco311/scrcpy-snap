@@ -194,18 +194,6 @@ parts:
         cd "/snap/$snap/current" && find . -type f,l -exec rm -fv "$CRAFT_PRIME/{}" \;
       done
 
-  gpu-2404:
-    after: [cleanup]
-    source: https://github.com/canonical/gpu-snap.git
-    plugin: dump
-    override-prime: |
-      #craftctl default
-      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
-      # Workaround for https://bugs.launchpad.net/snapd/+bug/2055273
-      mkdir -p "${CRAFT_PRIME}/gpu-2404"
-    prime:
-      - -*
-
 plugs:
   adb:
     interface: content
