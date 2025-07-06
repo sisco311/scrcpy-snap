@@ -52,33 +52,39 @@ if ! test -e "${marker_file}" \
 fi
 
 marker_file="${SNAP_USER_COMMON}/.marker.skip-rawusb-interface-notice"
-if ! snapctl is-connected raw-usb \
-    && ! test -e "${marker_file}" \
-    && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"; then
+if ! snapctl is-connected raw-usb; then
     printf \
-        '=========================\nThe following functionality requires the "raw-usb" snapd security confinement interface to be connected:\n\nOTG mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:raw-usb\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' \
+        '%s: Warning: The "raw-usb" snapd security confinement interface is not connected, the OTG mode will not work.\n' \
+        "${0}" \
         1>&2
 
-    "${SNAP}/bin/manual-interface-notice" && ret="${?}" || ret="${?}"
+    if ! test -e "${marker_file}" \
+        && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"; then
+        printf \
+            '=========================\nThe following functionality requires the "raw-usb" snapd security confinement interface to be connected:\n\nOTG mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:raw-usb\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' \
+            1>&2
 
-    case "${ret}" in
-        0)
-            # User pressed ENTER, avoid showing this notice window in the future
-            touch "${marker_file}"
-            ;;
-        1)
-            # User bailed out
-            exit 1
-            ;;
-        2)
-            printf "Dialog timed out, continuing...\n"
-            ;;
-        *)
-            # Unknown error
-            printf "FATAL: Unknown sdl2-notice exit status: %d\n" "${ret}" 1>&2
-            exit 99
-            ;;
-    esac
+        "${SNAP}/bin/manual-interface-notice" && ret="${?}" || ret="${?}"
+
+        case "${ret}" in
+            0)
+                # User pressed ENTER, avoid showing this notice window in the future
+                touch "${marker_file}"
+                ;;
+            1)
+                # User bailed out
+                exit 1
+                ;;
+            2)
+                printf "Dialog timed out, continuing...\n"
+                ;;
+            *)
+                # Unknown error
+                printf "FATAL: Unknown sdl2-notice exit status: %d\n" "${ret}" 1>&2
+                exit 99
+                ;;
+        esac
+    fi
 fi
 
 exec "${@}"
