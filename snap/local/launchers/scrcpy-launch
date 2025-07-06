@@ -29,7 +29,7 @@ if ! test -e "${marker_file}" \
     printf \
         '=========================\nHello!\n\nI would like to inform you that I have become a collaborator of this snap and have given access to directly contribute to the packaging.\n\nIf you wish to revert the installation to the previous state you are able to do so by following the instructions at <https://github.com/brlin-tw/scrcpy-snap/releases/tag/v1.99>.\n\nBest regards,\nBuo-ren Lin <https://brlin.me>\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' 1>&2
 
-    "${SNAP}/bin/sdl2-notice" && ret="${?}" || ret="${?}"
+    "${SNAP}/bin/collaborator-change-notice" && ret="${?}" || ret="${?}"
 
     case "${ret}" in
         0)
