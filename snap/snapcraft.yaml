@@ -189,9 +189,16 @@ parts:
       - core24
       - gnome-46-2404
     override-prime: |
-      set -eux
-      for snap in "core24" "gnome-46-2404"; do
-        cd "/snap/$snap/current" && find . -type f,l -exec rm -fv "$CRAFT_PRIME/{}" \;
+      set -eu
+
+      for snap in core24 gnome-46-2404; do
+        if ! "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/drop-content-snap-duplicate-files.sh" "${snap}"; then
+          printf \
+              'Error: Unable to drop the duplicate files in the snap installation directory "%s".\n' \
+              "${snap}" \
+              1>&2
+          exit 1
+        fi
       done
 
 plugs:
