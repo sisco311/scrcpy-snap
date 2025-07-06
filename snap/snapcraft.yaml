@@ -192,10 +192,11 @@ parts:
     build-snaps:
       - core24
       - gnome-46-2404
+      - mesa-2404
     override-prime: |
       set -eu
 
-      for snap in core24 gnome-46-2404; do
+      for snap in core24 gnome-46-2404 mesa-2404; do
         if ! "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/drop-content-snap-duplicate-files.sh" "${snap}"; then
           printf \
               'Error: Unable to drop the duplicate files in the snap installation directory "%s".\n' \
