@@ -7,3 +7,6 @@
 
 # Don't track remote-build build logs
 /snapcraft-*.txt
+
+# Don't track plain text files which is used for saving command output
+*.txt
