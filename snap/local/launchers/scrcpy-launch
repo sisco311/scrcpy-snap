@@ -23,13 +23,6 @@ if ! set "${set_opts[@]}"; then
     exit 1
 fi
 
-if test -z "${LD_LIBRARY_PATH}"; then
-    LD_LIBRARY_PATH="${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/android:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/pulseaudio:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/blas:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/lapack"
-else
-    LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/android:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/pulseaudio:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/blas:${SNAP}/usr/lib/${SNAP_LAUNCHER_ARCH_TRIPLET}/lapack"
-fi
-export LD_LIBRARY_PATH
-
 marker_file="${SNAP_USER_COMMON}/.marker.skip-collaborator-change-notice-20250627"
 if ! test -e "${marker_file}" \
     && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"; then
