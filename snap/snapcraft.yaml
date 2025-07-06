@@ -162,11 +162,13 @@ parts:
       craftctl default
       mkdir -p "${SNAPCRAFT_PART_INSTALL}/bin"
 
-      # NOTE: The lack of quotes around the `pkg-config` command substitution is intentional.
-      gcc \
-        -o "${SNAPCRAFT_PART_INSTALL}/bin/collaborator-change-notice" \
-        "${CRAFT_PROJECT_DIR}/snap/local/launchers/sdl2-notices/collaborator-change-notice.c" \
-        $(pkg-config --cflags --libs sdl2 SDL2_ttf)
+      for notice in collaborator-change-notice manual-interface-notice; do
+        # NOTE: The lack of quotes around the `pkg-config` command substitution is intentional.
+        gcc \
+          -o "${SNAPCRAFT_PART_INSTALL}/bin/${notice}" \
+          "${CRAFT_PROJECT_DIR}/snap/local/launchers/sdl2-notices/${notice}.c" \
+          $(pkg-config --cflags --libs sdl2 SDL2_ttf)
+      done
     build-snaps:
       - gnome-46-2404-sdk
     build-packages:
