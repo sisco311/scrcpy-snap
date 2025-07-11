@@ -51,6 +51,18 @@ if ! test -e "${marker_file}" \
     esac
 fi
 
+flag_otg_mode=false
+for arg in "${@:1}"; do
+    case "${arg}" in
+        --otg)
+            flag_otg_mode=true
+            ;;
+        *)
+            : # Do nothing
+        ;;
+    esac
+done
+
 marker_file="${SNAP_USER_COMMON}/.marker.skip-rawusb-interface-notice"
 if ! snapctl is-connected raw-usb; then
     printf \
@@ -58,8 +70,10 @@ if ! snapctl is-connected raw-usb; then
         "${0}" \
         1>&2
 
-    if ! test -e "${marker_file}" \
-        && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"; then
+    if {
+        ! test -e "${marker_file}" \
+        && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"
+        } || test "${flag_otg_mode}" = "true"; then
         printf \
             '=========================\nThe following functionality requires the "raw-usb" snapd security confinement interface to be connected:\n\nOTG mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:raw-usb\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' \
             1>&2
