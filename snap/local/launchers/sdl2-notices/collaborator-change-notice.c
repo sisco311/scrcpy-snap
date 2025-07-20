@@ -20,8 +20,15 @@ const char *notice_template = "Hello!\n\nI would like to inform you that I have 
 
 int main(int argc, char *argv[]) {
     int needed = snprintf(NULL, 0, notice_template, TIMEOUT);
-    char *notice = malloc(needed + 1);
-    snprintf(notice, needed + 1, notice_template, TIMEOUT);
+
+    /*
+        The snprintf function returns the number of characters that would have been written if enough space had been available.
+        The +1 is to account for the null terminator.
+    */
+    needed = needed + 1;
+
+    char *notice = malloc(needed);
+    snprintf(notice, needed, notice_template, TIMEOUT);
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
