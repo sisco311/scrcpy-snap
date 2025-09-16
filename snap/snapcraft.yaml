@@ -8,11 +8,11 @@ description: |
 
   The source code of scrcpy itself can be found at: https://github.com/Genymobile/scrcpy
 
-adopt-info: scrcpy
 license: Apache-2.0
 grade: stable
 confinement: strict
 compression: lzo
+version: 3.3.1
 
 base: core24
 
@@ -72,23 +72,22 @@ parts:
     build-packages:
       - curl
       - jq
-    override-pull: SCRCPY_SERVER_VERSION=3.3.1 "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
+    override-pull: >-
+      SCRCPY_SERVER_VERSION="${SNAPCRAFT_PROJECT_VERSION}"
+      "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/pull-scrcpy-server.sh"
     override-build: |
       mkdir -p "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy"
       cp scrcpy-server-v* "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy/scrcpy-server"
 
   scrcpy:
     source: https://github.com/Genymobile/scrcpy.git
-    source-tag: v3.3.1
+    source-tag: v$SNAPCRAFT_PROJECT_VERSION
     plugin: meson
     meson-parameters:
       - --buildtype=release
       - --strip
       - -Db_lto=true
       - -Dcompile_server=false
-    override-pull: |
-      craftctl default
-      craftctl set version="$(git describe --tag)"
     build-snaps:
       - gnome-46-2404-sdk
     build-packages:
