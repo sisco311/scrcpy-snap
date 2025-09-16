@@ -12,7 +12,7 @@ license: Apache-2.0
 grade: stable
 confinement: strict
 compression: lzo
-version: 3.3.1
+version: 3.3.2
 
 base: core24
 
