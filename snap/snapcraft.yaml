@@ -33,9 +33,10 @@ apps:
     command-chain:
       - bin/scrcpy-launch
     completer: usr/local/share/bash-completion/completions/scrcpy
-    environment:
+    desktop: usr/local/share/applications/scrcpy.desktop
+    environment: &scrcpy-env
       LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/blas:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/lapack:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:${LD_LIBRARY_PATH}
-    plugs:
+    plugs: &scrcpy-plugs
       - adb-support
       - alsa
       - audio-playback
@@ -47,6 +48,17 @@ apps:
       - pulseaudio
       - raw-usb
       - unity7
+    extensions:
+      - gnome
+
+  console:
+    command: usr/local/bin/scrcpy
+    command-chain:
+      - bin/scrcpy-launch
+    completer: usr/local/share/bash-completion/completions/scrcpy
+    desktop: usr/local/share/applications/scrcpy-console.desktop
+    environment: *scrcpy-env
+    plugs: *scrcpy-plugs
     extensions:
       - gnome
 
@@ -98,6 +110,7 @@ parts:
       - libsdl2-dev
       - libswresample-dev
       - libusb-1.0-0-dev
+    override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
       - adb
       - ffmpeg

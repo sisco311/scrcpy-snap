@@ -1,8 +1,0 @@
-[Desktop Entry]
-X-SnapInstanceName=scrcpy
-Name=scrcpy
-Comment=Display and control your Android device
-Terminal=false
-Type=Application
-Exec=scrcpy
-Icon=${SNAP}/usr/local/share/icons/hicolor/256x256/apps/scrcpy.png
