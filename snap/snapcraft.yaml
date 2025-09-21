@@ -232,11 +232,6 @@ parts:
       craftctl default
       mkdir -p "${CRAFT_PRIME}/"{gpu-2404,data-dir,data-dir/{icons,sounds,themes}}
 
-plugs:
-  adb:
-    interface: content
-    target: $SNAP/usr/bin
-
 lint:
   ignore:
     - library:
