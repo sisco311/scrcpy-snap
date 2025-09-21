@@ -45,13 +45,13 @@
 
 #### XDG Desktop Entry
 
-The snap comes with an XDG desktop entry that can be called from your desktop environment's application menu. If you would like to customize the command line flags that are called by the desktop environment, edit the `Exec` key value at `/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop`. For example:
+The snap comes with an XDG desktop entry that can be called from your desktop environment's application menu. If you would like to customize the command line flags that are called by the desktop environment, copy the `/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop` desktop entry file to `~/.local/share/applications/`(manually create the directory if it isn't existed yet) and edit the `Exec` key's value to your liking. For example:
 
-    Exec=scrcpy
+    Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop /snap/bin/scrcpy
 
 could become:
 
-    Exec=scrcpy -w
+    Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop /snap/bin/scrcpy -w
 
 to enable the `--stay-awake` flag on scrcpy. See all flags by running `scrcpy --help`.
 
