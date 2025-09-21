@@ -14,8 +14,6 @@
 
 ### From the Terminal
 
-##### The latest stable version (currently v2.0) is in the stable channel:
-
     sudo snap install scrcpy
 
 ##### Usage:
