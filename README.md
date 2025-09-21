@@ -16,32 +16,36 @@
 
     sudo snap install scrcpy
 
-##### Usage:
+## Usage
 
     scrcpy
 
-##### You can also use the builtin adb tool:
+### You can also use the builtin adb tool:
 
     scrcpy.adb [options]
 
-##### For example:
+For example:
 
     scrcpy.adb devices
     scrcpy.adb kill-server
 
-##### For audio playback the alsa plug is needed:
+### For audio playback the alsa plug is needed:
 
     sudo snap connect scrcpy:alsa
 
-##### In order to use the v4l2loopback feature the camera plug must be connected:
+### In order to use the v4l2loopback feature the camera plug must be connected:
 
     sudo snap connect scrcpy:camera
 
-##### For physical keyboard simulation you need to connect the raw-usb plug:
+### For physical keyboard simulation you need to connect the raw-usb plug:
 
     sudo snap connect scrcpy:raw-usb
 
-#### XDG Desktop Entry
+### To uninstall the scrcpy snap:
+
+    sudo snap remove scrcpy
+
+## XDG Desktop Entry
 
 The snap comes with an XDG desktop entry that can be called from your desktop environment's application menu. If you would like to customize the command line flags that are called by the desktop environment, copy the `/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop` desktop entry file to `~/.local/share/applications/`(manually create the directory if it isn't existed yet) and edit the `Exec` key's value to your liking. For example:
 
@@ -52,7 +56,3 @@ could become:
     Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/scrcpy_scrcpy.desktop /snap/bin/scrcpy -w
 
 to enable the `--stay-awake` flag on scrcpy. See all flags by running `scrcpy --help`.
-
-#### To uninstall the scrcpy snap:
-
-    sudo snap remove scrcpy
