@@ -45,7 +45,7 @@ if ! test -e "${marker_file}" \
             ;;
         *)
             # Unknown error
-            printf "FATAL: Unknown sdl2-notice exit status: %d\n" "${ret}" 1>&2
+            printf "FATAL: Unknown collaborator-change-notice exit status: %d\n" "${ret}" 1>&2
             exit 99
             ;;
     esac
