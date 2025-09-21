@@ -48,7 +48,7 @@ if ! sed "${sed_opts[@]}" \
 fi
 
 printf \
-    'Info: Patching the Exec key of the main desktop entry file...\n'
+    'Info: Patching the main desktop entry file...\n'
 sed_opts=(
     --in-place
 
@@ -61,15 +61,17 @@ sed_opts=(
     # Drop not-applicable user environment comments
     --expression='/^#/d'
 
+    # Append unofficial marking to the Name keys
+    --expression='/^Name(\[[^\]]+\])?=/s/$/ (unofficial snap)/'
 )
 if ! sed "${sed_opts[@]}" \
     "${CRAFT_PART_INSTALL}/usr/local/share/applications/scrcpy.desktop"; then
-    printf 'Error: Unable to patch the Exec key of the main desktop entry file.\n' 1>&2
+    printf 'Error: Unable to patch the main desktop entry file.\n' 1>&2
     exit 1
 fi
 
 printf \
-    'Info: Patching the Exec key of the console desktop entry file...\n'
+    'Info: Patching the console desktop entry file...\n'
 sed_opts=(
     --in-place
 
@@ -81,9 +83,12 @@ sed_opts=(
 
     # Drop not-applicable user environment comments
     --expression='/^#/d'
+
+    # Append unofficial marking to the Name keys
+    --expression='/^Name(\[[^\]]+\])?=/s/$/ (unofficial snap)/'
 )
 if ! sed "${sed_opts[@]}" \
     "${CRAFT_PART_INSTALL}/usr/local/share/applications/scrcpy-console.desktop"; then
-    printf 'Error: Unable to patch the Exec key of the console desktop entry file.\n' 1>&2
+    printf 'Error: Unable to patch the console desktop entry file.\n' 1>&2
     exit 1
 fi
