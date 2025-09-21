@@ -8,11 +8,11 @@
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
-### The Graphical Way
+### The graphical way
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/scrcpy)
 
-### From the Terminal
+### From the terminal
 
     sudo snap install scrcpy
 
