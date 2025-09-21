@@ -77,6 +77,8 @@ layout:
     symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
+  /usr/share/libdrm:
+    bind: $SNAP/gpu-2404/libdrm
 
 parts:
   scrcpy-server:
@@ -222,6 +224,13 @@ parts:
           exit 1
         fi
       done
+
+  lp-bug-2016358-workaround:
+    plugin: nil
+    override-prime: |
+      set -eu
+      craftctl default
+      mkdir -p "${CRAFT_PRIME}/"{gpu-2404,data-dir,data-dir/{icons,sounds,themes}}
 
 plugs:
   adb:
