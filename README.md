@@ -35,13 +35,20 @@ If you have multiple installations of scrcpy, you might need to run the followin
 
     snap run scrcpy
 
-### You can also use the builtin adb tool
+### Interacting with the builtin adb server
+
+This snap uses a builtin adb server/client to communicate with your Android device. If you need to interact with the adb server launched by the snap, you should use the `scrcpy.adb` command to do so:
 
     scrcpy.adb [options]
 
-For example:
+For example, to list the devices available to the snap, you can run the following command:
 
     scrcpy.adb devices
+
+Using other adb installations (e.g., the one provided by your distribution) to interact with the adb server launched by the snap is _not_ supported and may lead to unexpected behaviors, refer to [Consider adding more documentation about when and how to use scrcpy.adb · Issue #21 · sisco311/scrcpy-snap](https://github.com/sisco311/scrcpy-snap/issues/21) for more information.
+
+If you need to shutdown the adb server launched by the snap (e.g. to run another adb server or to allow the snap to be updated), you can do so by running:
+
     scrcpy.adb kill-server
 
 ### For audio playback the alsa plug is needed
