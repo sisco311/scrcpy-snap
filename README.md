@@ -20,7 +20,7 @@
 
     scrcpy
 
-### You can also use the builtin adb tool:
+### You can also use the builtin adb tool
 
     scrcpy.adb [options]
 
@@ -29,19 +29,19 @@ For example:
     scrcpy.adb devices
     scrcpy.adb kill-server
 
-### For audio playback the alsa plug is needed:
+### For audio playback the alsa plug is needed
 
     sudo snap connect scrcpy:alsa
 
-### In order to use the v4l2loopback feature the camera plug must be connected:
+### In order to use the v4l2loopback feature the camera plug must be connected
 
     sudo snap connect scrcpy:camera
 
-### For physical keyboard simulation you need to connect the raw-usb plug:
+### For physical keyboard simulation you need to connect the raw-usb plug
 
     sudo snap connect scrcpy:raw-usb
 
-### To uninstall the scrcpy snap:
+### To uninstall the scrcpy snap
 
     sudo snap remove scrcpy
 
