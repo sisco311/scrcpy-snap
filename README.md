@@ -18,7 +18,22 @@
 
 ## Usage
 
+### Launching the application
+
+Once installed, you should be able to locate the following application entries in your desktop environment's application menu:
+
+* scrcpy  
+  Run scrcpy directly.
+* scrcpy (console)  
+  Run scrcpy from a terminal window, which allows you to see any output or error messages.  Use this option if the regular scrcpy entry does not work.
+
+You can launch the application by running the following command in the terminal:
+
     scrcpy
+
+If you have multiple installations of scrcpy, you might need to run the following command instead to ensure you're using the snapped version:
+
+    snap run scrcpy
 
 ### You can also use the builtin adb tool
 
