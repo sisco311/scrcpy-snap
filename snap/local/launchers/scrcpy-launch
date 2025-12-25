@@ -78,7 +78,7 @@ if ! snapctl is-connected raw-usb; then
             '=========================\nThe following functionality requires the "raw-usb" snapd security confinement interface to be connected:\n\nOTG mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:raw-usb\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' \
             1>&2
 
-        "${SNAP}/bin/manual-interface-notice" && ret="${?}" || ret="${?}"
+        "${SNAP}/bin/manual-interface-notice" raw-usb 'OTG mode' && ret="${?}" || ret="${?}"
 
         case "${ret}" in
             0)

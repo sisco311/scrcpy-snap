@@ -16,10 +16,17 @@
 #define FONT_SIZE 36
 #define TIMEOUT 60
 
-const char *notice_template = "The following functionality requires the \"raw-usb\" snapd security confinement interface to be connected:\n\nOTG mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:raw-usb\n\nPress ENTER to continue or press Q within %u seconds to quit.";
+const char *notice_template = "The following functionality requires the \"%s\" snapd security confinement interface to be connected:\n\n%s\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:%s\n\nPress ENTER to continue or press Q within %u seconds to quit.";
 
 int main(int argc, char *argv[]) {
-    int needed = snprintf(NULL, 0, notice_template, TIMEOUT);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s _interface_name_ _feature_name_\n", argv[0]);
+        return 1;
+    }
+    char* interface_name = argv[1];
+    char* feature_name = argv[2];
+
+    int needed = snprintf(NULL, 0, notice_template, interface_name, feature_name, interface_name, TIMEOUT);
 
     /*
         The snprintf function returns the number of characters that would have been written if enough space had been available.
@@ -28,7 +35,7 @@ int main(int argc, char *argv[]) {
     needed = needed + 1;
 
     char *notice = malloc(needed);
-    snprintf(notice, needed, notice_template, TIMEOUT);
+    snprintf(notice, needed, notice_template, interface_name, feature_name, interface_name, TIMEOUT);
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
