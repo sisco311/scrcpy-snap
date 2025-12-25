@@ -43,6 +43,7 @@ apps:
       - audio-record
       - camera
       - home
+      - joystick
       - network
       - network-bind
       - pulseaudio

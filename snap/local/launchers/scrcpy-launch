@@ -52,10 +52,14 @@ if ! test -e "${marker_file}" \
 fi
 
 flag_otg_mode=false
+flag_gamepad_mode=false
 for arg in "${@:1}"; do
     case "${arg}" in
         --otg)
             flag_otg_mode=true
+            ;;
+        --gamepad*)
+            flag_gamepad_mode=true
             ;;
         *)
             : # Do nothing
@@ -79,6 +83,44 @@ if ! snapctl is-connected raw-usb; then
             1>&2
 
         "${SNAP}/bin/manual-interface-notice" raw-usb 'OTG mode' && ret="${?}" || ret="${?}"
+
+        case "${ret}" in
+            0)
+                # User pressed ENTER, avoid showing this notice window in the future
+                touch "${marker_file}"
+                ;;
+            1)
+                # User bailed out
+                exit 1
+                ;;
+            2)
+                printf "Dialog timed out, continuing...\n"
+                ;;
+            *)
+                # Unknown error
+                printf "FATAL: Unknown sdl2-notice exit status: %d\n" "${ret}" 1>&2
+                exit 99
+                ;;
+        esac
+    fi
+fi
+
+marker_file="${SNAP_USER_COMMON}/.marker.skip-joystick-interface-notice"
+if ! snapctl is-connected joystick; then
+    printf \
+        '%s: Warning: The "joystick" snapd security confinement interface is not connected, the Gamepad mode will not work.\n' \
+        "${0}" \
+        1>&2
+
+    if {
+        ! test -e "${marker_file}" \
+        && test "${SNAP_LAUNCHER_NOTICE_ENABLED}" = "true"
+        } || test "${flag_gamepad_mode}" = "true"; then
+        printf \
+            '=========================\nThe following functionality requires the "joystick" snapd security confinement interface to be connected:\n\nGamepad mode\n\nYou may do so by running the following command in a terminal:\n\n    sudo snap connect scrcpy:joystick\n\nNOTE: A graphical notice is displayed with a timeout in the meantime, to skip it, set the environment variable SNAP_LAUNCHER_NOTICE_ENABLED to "false".\n=========================\n' \
+            1>&2
+
+        "${SNAP}/bin/manual-interface-notice" joystick 'Gamepad mode' && ret="${?}" || ret="${?}"
 
         case "${ret}" in
             0)
