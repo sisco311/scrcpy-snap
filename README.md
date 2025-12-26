@@ -63,6 +63,10 @@ If you need to shutdown the adb server launched by the snap (e.g. to run another
 
     sudo snap connect scrcpy:raw-usb
 
+### In order to use the gamepad simulation feature the joystick plug must be connected
+
+    sudo snap connect scrcpy:joystick
+
 ### To uninstall the scrcpy snap
 
     sudo snap remove scrcpy
