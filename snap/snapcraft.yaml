@@ -117,14 +117,19 @@ parts:
       - -Dcompile_server=false
     build-snaps:
       - ffmpeg-2404-sdk
-      - gnome-46-2404-sdk
     build-environment:
       - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
       - LD_LIBRARY_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
       - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
+    # https://github.com/Genymobile/scrcpy/blob/master/doc/build.md#debianubuntu
     build-packages:
+      - gcc
+      - git
       - libsdl2-dev
       - libusb-1.0-0-dev
+      - pkg-config
+      - meson
+      - ninja-build
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
       - libasound2
@@ -216,8 +221,6 @@ parts:
           "${CRAFT_PROJECT_DIR}/snap/local/launchers/sdl2-notices/${notice}.c" \
           $(pkg-config --cflags --libs sdl2 SDL2_ttf)
       done
-    build-snaps:
-      - gnome-46-2404-sdk
     build-packages:
       - libsdl2-dev
       - libsdl2-ttf-dev
