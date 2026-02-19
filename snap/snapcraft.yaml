@@ -130,6 +130,13 @@ parts:
       - pkg-config
       - meson
       - ninja-build
+
+      # Provided by the FFmpeg SDK content snap
+      #- libavcodec-dev
+      #- libavdevice-dev
+      #- libavformat-dev
+      #- libavutil-dev
+      #- libswresample-dev
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
       - libasound2
