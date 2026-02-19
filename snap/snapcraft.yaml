@@ -124,7 +124,6 @@ parts:
       - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
     build-packages:
       - libsdl2-dev
-      - libswresample-dev
       - libusb-1.0-0-dev
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
