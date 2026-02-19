@@ -45,7 +45,7 @@ apps:
     completer: usr/local/share/bash-completion/completions/scrcpy
     desktop: usr/local/share/applications/scrcpy.desktop
     environment: &scrcpy-env
-      LD_LIBRARY_PATH: ${SNAP}/ffmpeg-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/blas:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/lapack:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:${LD_LIBRARY_PATH}
+      LD_LIBRARY_PATH: ${SNAP}/ffmpeg-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${LD_LIBRARY_PATH}
     plugs: &scrcpy-plugs
       - adb-support
       - alsa
@@ -78,7 +78,7 @@ apps:
     environment:
       # NOTE: The gnome-platform content snap entry provides libprotobuf
       # required by the adb binary.
-      LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${LD_LIBRARY_PATH}
+      LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${LD_LIBRARY_PATH}
     plugs:
       - network-bind
       - raw-usb
@@ -133,14 +133,12 @@ parts:
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
       - libasound2
+      - libblas3
       - libglu1-mesa
       - libglut3.12
       - libsdl2-2.0-0
-
-      # Provided by gnome-platform
-      #- libblas3
-      #- libslang2
-      #- libusb-1.0-0
+      - libslang2
+      - libusb-1.0-0
     stage:
       - -usr/lib/*/libcaca++.so*
       - -usr/lib/*/libcjson_utils.so*
