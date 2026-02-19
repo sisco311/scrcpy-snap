@@ -166,6 +166,11 @@ parts:
       - -usr/lib/*/libzvbi-chains.so*
       - -usr/share/fonts
 
+      # Provided by the mesa-2404 content snap
+      - -usr/lib/*/libdrm_amdgpu.so*
+      - -usr/lib/*/libdrm_intel.so*
+      - -usr/lib/*/libgallium-*.so*
+
   # Launcher programs to fix problems at runtime
   launchers:
     source: snap/local/launchers
@@ -209,6 +214,11 @@ parts:
       - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libicutest.so*
       - -usr/lib/*/libpulse-simple.so*
+
+      # Provided by the mesa-2404 content snap
+      - -usr/lib/*/libdrm_amdgpu.so*
+      - -usr/lib/*/libdrm_intel.so*
+      - -usr/lib/*/libgallium-*.so*
 
   cleanup:
     after:
