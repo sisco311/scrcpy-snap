@@ -128,7 +128,6 @@ parts:
       - libusb-1.0-0-dev
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
-      - adb
       - libasound2
       - libglu1-mesa
       - libglut3.12
@@ -176,6 +175,23 @@ parts:
       - -usr/lib/*/libdrm_amdgpu.so*
       - -usr/lib/*/libdrm_intel.so*
       - -usr/lib/*/libgallium-*.so*
+
+  adb:
+    plugin: nil
+    stage-packages:
+      - adb
+      - android-libbase
+      - android-libboringssl
+      - android-libcutils
+      - android-liblog
+      - android-libziparchive
+      - libbrotli1
+      - libcap2
+      - liblz4-1
+      - libprotobuf32t64
+      - libudev1
+      - libusb-1.0-0
+      - libzstd1
 
   # Launcher programs to fix problems at runtime
   launchers:
