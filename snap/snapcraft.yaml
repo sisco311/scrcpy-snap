@@ -72,7 +72,9 @@ apps:
   adb:
     command: usr/bin/adb
     environment:
-      LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${LD_LIBRARY_PATH}
+      # NOTE: The gnome-platform content snap entry provides libprotobuf
+      # required by the adb binary.
+      LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${LD_LIBRARY_PATH}
     plugs:
       - network-bind
       - raw-usb
