@@ -7,6 +7,10 @@ description: |
   This is an unofficial scrcpy distribution.  Please report any issues to the snap's own issue tracker: https://github.com/sisco311/scrcpy-snap/issues
 
   The source code of scrcpy itself can be found at: https://github.com/Genymobile/scrcpy
+contact: https://github.com/sisco311/scrcpy-snap/issues
+issues: https://github.com/sisco311/scrcpy-snap/issues
+source-code: https://github.com/sisco311/scrcpy-snap
+website: https://github.com/sisco311/scrcpy-snap
 
 license: Apache-2.0
 grade: stable
