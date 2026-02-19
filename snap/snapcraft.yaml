@@ -27,6 +27,12 @@ platforms:
     build-on: [armhf]
     build-for: [armhf]
 
+plugs:
+  ffmpeg-2404:
+    interface: content
+    target: $SNAP/ffmpeg-platform
+    default-provider: ffmpeg-2404
+
 apps:
   scrcpy:
     command: usr/local/bin/scrcpy
@@ -35,7 +41,7 @@ apps:
     completer: usr/local/share/bash-completion/completions/scrcpy
     desktop: usr/local/share/applications/scrcpy.desktop
     environment: &scrcpy-env
-      LD_LIBRARY_PATH: ${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/blas:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/lapack:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:${LD_LIBRARY_PATH}
+      LD_LIBRARY_PATH: ${SNAP}/ffmpeg-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/blas:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/lapack:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:${LD_LIBRARY_PATH}
     plugs: &scrcpy-plugs
       - adb-support
       - alsa
@@ -104,19 +110,19 @@ parts:
       - -Db_lto=true
       - -Dcompile_server=false
     build-snaps:
+      - ffmpeg-2404-sdk
       - gnome-46-2404-sdk
+    build-environment:
+      - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+      - LD_LIBRARY_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
     build-packages:
-      - libavcodec-dev
-      - libavdevice-dev
-      - libavformat-dev
-      - libavutil-dev
       - libsdl2-dev
       - libswresample-dev
       - libusb-1.0-0-dev
     override-build: "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/build-scrcpy.sh"
     stage-packages:
       - adb
-      - ffmpeg
       - libasound2
       - libglu1-mesa
       - libglut3.12
@@ -211,12 +217,13 @@ parts:
     plugin: nil
     build-snaps:
       - core24
+      - ffmpeg-2404
       - gnome-46-2404
       - mesa-2404
     override-prime: |
       set -eu
 
-      for snap in core24 gnome-46-2404 mesa-2404; do
+      for snap in core24 ffmpeg-2404 gnome-46-2404 mesa-2404; do
         if ! "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/drop-content-snap-duplicate-files.sh" "${snap}"; then
           printf \
               'Error: Unable to drop the duplicate files in the snap installation directory "%s".\n' \
@@ -231,7 +238,7 @@ parts:
     override-prime: |
       set -eu
       craftctl default
-      mkdir -p "${CRAFT_PRIME}/"{gpu-2404,data-dir,data-dir/{icons,sounds,themes}}
+      mkdir -p "${CRAFT_PRIME}/"{ffmpeg-2404,gpu-2404,data-dir,data-dir/{icons,sounds,themes}}
 
 lint:
   ignore:
