@@ -50,7 +50,6 @@ apps:
       - adb-support
       - alsa
       - audio-playback
-      - audio-record
       - camera
       - home
       - joystick
