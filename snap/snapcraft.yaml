@@ -263,7 +263,6 @@ parts:
     plugin: nil
     build-snaps:
       - core24
-      - ffmpeg-2404
       - mesa-2404
     override-prime: |
       set -eu
