@@ -91,8 +91,12 @@ layout:
   # https://github.com/canonical/snapcraft/pull/6054
   /usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:
     symlink: $SNAP/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy
+  # This fixes the "ERROR: Could not open icon image: /usr/local/share/icons/hicolor/256x256/apps/scrcpy.png"
+  # error at runtime.
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
+  # This allows scrcpy to locate the scrcpy-server binary.
+  # "ERROR: '/usr/local/share/scrcpy/scrcpy-server' does not exist or is not a regular file"
   /usr/local/share/scrcpy:
     symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
