@@ -141,8 +141,6 @@ parts:
     stage-packages:
       - libasound2
       - libblas3
-      - libglu1-mesa
-      - libglut3.12
       - libsdl2-2.0-0
       - libslang2
       - libusb-1.0-0
