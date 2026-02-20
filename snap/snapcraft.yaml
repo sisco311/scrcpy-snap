@@ -68,6 +68,7 @@ apps:
       # For video & audio recording support
       # https://github.com/Genymobile/scrcpy/blob/master/doc/recording.md
       - home
+      - removable-media
 
       # For gamepad simulation support
       # https://github.com/Genymobile/scrcpy/blob/master/doc/gamepad.md
