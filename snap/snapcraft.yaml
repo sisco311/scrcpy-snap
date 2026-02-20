@@ -84,6 +84,13 @@ apps:
       - raw-usb
 
 layout:
+  # WORKAROUND:
+  # libproxy.so.1 (from gnome-46-2404) has a hardcoded RUNPATH of
+  # /usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy for loading
+  # libpxbackend-1.0.so.  Map it so the dynamic linker can resolve it.
+  # https://github.com/canonical/snapcraft/pull/6054
+  /usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy:
+    symlink: $SNAP/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/libproxy
   /usr/local/share/icons:
     symlink: $SNAP/usr/local/share/icons
   /usr/local/share/scrcpy:
