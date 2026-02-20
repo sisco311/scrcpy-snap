@@ -97,8 +97,6 @@ layout:
     symlink: $SNAP/usr/local/share/scrcpy
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
-  /usr/share/libdrm:
-    bind: $SNAP/gpu-2404/libdrm
 
 parts:
   scrcpy-server:
