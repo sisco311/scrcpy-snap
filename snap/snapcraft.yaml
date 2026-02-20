@@ -55,22 +55,22 @@ apps:
       - network-bind
       - raw-usb
 
-      # For audio forwarding functionality
+      # For audio forwarding functionality.
       # https://github.com/Genymobile/scrcpy/blob/master/doc/audio.md
       - alsa
       - audio-playback
       - pulseaudio
 
-      # For v4l2 emulation support
+      # For v4l2 emulation support.
       # https://github.com/Genymobile/scrcpy/blob/master/doc/v4l2.md
       - camera
 
-      # For video & audio recording support
+      # For video & audio recording support.
       # https://github.com/Genymobile/scrcpy/blob/master/doc/recording.md
       - home
       - removable-media
 
-      # For gamepad simulation support
+      # For gamepad simulation support.
       # https://github.com/Genymobile/scrcpy/blob/master/doc/gamepad.md
       - joystick
 
