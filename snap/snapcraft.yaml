@@ -117,6 +117,7 @@ layout:
   # "ERROR: '/usr/local/share/scrcpy/scrcpy-server' does not exist or is not a regular file"
   /usr/local/share/scrcpy:
     symlink: $SNAP/usr/local/share/scrcpy
+
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
 
