@@ -275,26 +275,19 @@ parts:
       - -usr/lib/*/libdrm_intel.so*
       - -usr/lib/*/libgallium-*.so*
 
-  cleanup:
+  gpu-2404:
     after:
       - scrcpy
       - launchers-notice
-    plugin: nil
-    build-snaps:
-      - core24
-      - mesa-2404
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
     override-prime: |
-      set -eu
-
-      for snap in core24 mesa-2404; do
-        if ! "${CRAFT_PROJECT_DIR}/snap/local/scriptlets/drop-content-snap-duplicate-files.sh" "${snap}"; then
-          printf \
-              'Error: Unable to drop the duplicate files in the snap installation directory "%s".\n' \
-              "${snap}" \
-              1>&2
-          exit 1
-        fi
-      done
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+      # Workaround for https://bugs.launchpad.net/snapd/+bug/2055273
+      mkdir -p "${CRAFT_PRIME}/gpu-2404"
+    prime:
+      - bin/gpu-2404-wrapper
 
   lp-bug-2016358-workaround:
     plugin: nil
