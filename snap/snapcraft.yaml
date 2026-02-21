@@ -272,7 +272,7 @@ parts:
       '*': bin/
     stage:
       - -bin/README.*
-      - -bin/sdl2-notice
+      - -bin/sdl2-notices
 
   launchers-notice:
     source: snap/local/launchers/sdl2-notices
