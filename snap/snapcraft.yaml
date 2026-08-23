@@ -16,7 +16,7 @@ license: Apache-2.0
 grade: stable
 confinement: strict
 compression: lzo
-version: 3.3.4
+version: 4.1
 
 base: core24
 
@@ -45,7 +45,7 @@ apps:
     completer: usr/local/share/bash-completion/completions/scrcpy
     desktop: usr/local/share/applications/scrcpy.desktop
     environment: &scrcpy-env
-      LD_LIBRARY_PATH: ${SNAP}/ffmpeg-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${LD_LIBRARY_PATH}
+      LD_LIBRARY_PATH: ${SNAP}/ffmpeg-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/android:${SNAP}/usr/local/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/local/lib:${SNAP}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${SNAP}/usr/lib:${LD_LIBRARY_PATH}
     plugs: &scrcpy-plugs
       # For running the Android Debug Bridge (adb) and
       # connecting the Android devices over USB or TCP/IP.
@@ -134,7 +134,44 @@ parts:
       mkdir -p "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy"
       cp scrcpy-server-v* "${SNAPCRAFT_PART_INSTALL}/usr/local/share/scrcpy/scrcpy-server"
 
+  sdl3:
+    source: https://github.com/libsdl-org/SDL.git
+    source-tag: release-3.4.12
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_INSTALL_PREFIX=/usr/local
+      - -DSDL_TESTS=OFF
+      - -DSDL_STATIC=OFF
+      - -DSDL_SHARED=ON
+    build-packages:
+      - cmake
+      - ninja-build
+      - libasound2-dev
+      - libdecor-0-dev
+      - libdrm-dev
+      - libegl1-mesa-dev
+      - libgbm-dev
+      - libgl1-mesa-dev
+      - libgles2-mesa-dev
+      - libibus-1.0-dev
+      - libpipewire-0.3-dev
+      - libpulse-dev
+      - libudev-dev
+      - libwayland-dev
+      - libx11-dev
+      - libxcursor-dev
+      - libxext-dev
+      - libxfixes-dev
+      - libxi-dev
+      - libxkbcommon-dev
+      - libxrandr-dev
+      - libxss-dev
+      - libxtst-dev
+
   scrcpy:
+    after:
+      - sdl3
     source: https://github.com/Genymobile/scrcpy.git
     source-tag: v$SNAPCRAFT_PROJECT_VERSION
     plugin: meson
@@ -146,15 +183,15 @@ parts:
     build-snaps:
       - ffmpeg-2404-sdk
     build-environment:
-      - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
-      - LD_LIBRARY_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      - PKG_CONFIG_PATH: $CRAFT_STAGE/usr/local/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig:$CRAFT_STAGE/usr/local/lib/pkgconfig:$CRAFT_STAGE/usr/local/share/pkgconfig:/snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+      - LD_LIBRARY_PATH: $CRAFT_STAGE/usr/local/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/local/lib:/snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
       - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
     # https://github.com/Genymobile/scrcpy/blob/master/doc/build.md#debianubuntu
     build-packages:
       - gcc
       - git
-      - libsdl2-dev
       - libusb-1.0-0-dev
+      - libv4l-dev
       - pkg-config
       - meson
       - ninja-build
@@ -169,7 +206,6 @@ parts:
     stage-packages:
       - libasound2
       - libblas3
-      - libsdl2-2.0-0
       - libslang2
       - libusb-1.0-0
     stage:
@@ -278,6 +314,7 @@ parts:
   gpu-2404:
     after:
       - scrcpy
+      - sdl3
       - launchers-notice
     source: https://github.com/canonical/gpu-snap.git
     plugin: dump
