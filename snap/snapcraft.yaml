@@ -146,7 +146,6 @@ parts:
       - -DSDL_SHARED=ON
     build-packages:
       - cmake
-      - ninja-build
       - libasound2-dev
       - libdecor-0-dev
       - libdrm-dev
@@ -168,6 +167,7 @@ parts:
       - libxrandr-dev
       - libxss-dev
       - libxtst-dev
+      - ninja-build
 
   scrcpy:
     after:
@@ -192,9 +192,9 @@ parts:
       - git
       - libusb-1.0-0-dev
       - libv4l-dev
-      - pkg-config
       - meson
       - ninja-build
+      - pkg-config
 
       # Provided by the FFmpeg SDK content snap
       #- libavcodec-dev
@@ -210,9 +210,9 @@ parts:
       - libusb-1.0-0
     stage:
       - -usr/lib/*/libcaca++.so*
-      - -usr/lib/*/libcjson_utils.so*
       - -usr/lib/*/libcairo-gobject.so*
       - -usr/lib/*/libcairo.so*
+      - -usr/lib/*/libcjson_utils.so*
       - -usr/lib/*/libfftw3_omp.so*
       - -usr/lib/*/libfftw3_threads.so*
       - -usr/lib/*/libflite_cmu_grapheme_lang.so*
@@ -226,8 +226,8 @@ parts:
       - -usr/lib/*/libhwy_test.so*
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libicuio.so*
-      - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libicutest.so*
+      - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libjacknet.so*
       - -usr/lib/*/libjackserver.so*
       - -usr/lib/*/liboss4-salsa.so*
@@ -302,8 +302,8 @@ parts:
       - -usr/lib/*/libharfbuzz.so*
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libicuio.so*
-      - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libicutest.so*
+      - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libpulse-simple.so*
 
       # Provided by the mesa-2404 content snap
@@ -313,9 +313,9 @@ parts:
 
   gpu-2404:
     after:
+      - launchers-notice
       - scrcpy
       - sdl3
-      - launchers-notice
     source: https://github.com/canonical/gpu-snap.git
     plugin: dump
     override-prime: |
